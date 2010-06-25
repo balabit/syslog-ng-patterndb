@@ -1,0 +1,37 @@
+Schema: usracct
+Status: experimental
+Description: User Accounting Schema
+        This schema is used to describe user accounting data (e.g. login/logout events)
+Attributes:
+	NV pair name		Mandatory	Description
+	usracct.type		Y		"login" or "logout"
+	usracct.username	Y		the name of the user
+	usracct.sessionid	Y		an identifier of this session to match login/logout records
+	usracct.service		N		the service that the given user was using if applicable ("terminal", "ras", "desktop", etc.)
+	usracct.application	N		the application that implemented the service if applicable (e.g. "sshd", "vncserver", etc.)
+	usracct.device		N		the device that was used for the access if applicable (client computer, terminal line, etc)
+	usracct.authmethod	N		authentication method
+	usracct.details		N		other information that seem relevant
+
+
+Schema: secevt
+Status: experimental
+Description: Security Event Schema
+	This schema is meant to encapsulate IP security events, that can be correllated to an
+	proto/srcIP/srcPort/dstIP/dstPort tuple.
+Attributes:
+	NV pair name		Mandatory	Description
+	secevt.proto		Y		IP transport protocol (TCP, UDP, SCTP, ESP, ...)
+	secevt.src_ip		Y		Source IP address
+	secevt.src_port		Y		Source port number if applicable
+	secevt.dst_ip		Y		Destination IP address
+	secevt.dst_port		Y		Destination port number if applicable
+	secevt.nat_src_ip	N		Source IP address after NAT is performed.
+	secevt.nat_src_port	N		Source port number after NAT is performed.
+	secevt.nat_dst_ip	N		Destination IP address after NAT is performed.
+	secevt.nat_dst_port	N		Destination port number after NAT is performed.
+	secevt.verdict		N		The verdict (ACCEPT, REJECT, ...)
+	secevt.in_iface		N		Input interface name if applicable
+	secevt.out_iface	N		Output interface name if applicable
+	secevt.zone		N		Zone name if applicable
+	secevt.details		N		The kind of event that happened.
