@@ -14,24 +14,47 @@ Attributes:
 	usracct.details		N		other information that seem relevant
 
 
+Schema: flowevt
+Status: experimental
+Description: Events related to an IP flow
+	This schema is used to describe events that are related to an IP flow (connection).
+Attributes:
+	NV pair name		Mandatory	Description
+	flowevt.proto		Y		IP transport protocol (TCP, UDP, SCTP, ESP, ...)
+	flowevt.src_ip		Y		Source IP address
+	flowevt.src_port	Y		Source port number if applicable
+	flowevt.dst_ip		Y		Destination IP address
+	flowevt.dst_port	Y		Destination port number if applicable
+	flowevt.in_iface	N		Input interface name if applicable
+	flowevt.out_iface	N		Output interface name if applicable
+	flowevt.in_zone		N		Zone name if applicable
+	flowevt.out_zone	N		Zone name if applicable
+	flowevt.size_bytes	N		The size of the transaction if applicable
+	flowevt.size_packets	N		The number of packets of the transaction if applicable.
+	flowevt.details		N		other information that seem relevant
+
 Schema: secevt
 Status: experimental
 Description: Security Event Schema
-	This schema is meant to encapsulate IP security events, that can be correllated to an
-	proto/srcIP/srcPort/dstIP/dstPort tuple.
+	This schema describes events that either explicitly authorize or
+	reject something.  It is not usually used alone, as it is important
+	to know what was rejected.  The "what" can be described by a
+	different schema (like flowevt + security can describe firewall events)
 Attributes:
 	NV pair name		Mandatory	Description
-	secevt.proto		Y		IP transport protocol (TCP, UDP, SCTP, ESP, ...)
-	secevt.src_ip		Y		Source IP address
-	secevt.src_port		Y		Source port number if applicable
-	secevt.dst_ip		Y		Destination IP address
-	secevt.dst_port		Y		Destination port number if applicable
-	secevt.nat_src_ip	N		Source IP address after NAT is performed.
-	secevt.nat_src_port	N		Source port number after NAT is performed.
-	secevt.nat_dst_ip	N		Destination IP address after NAT is performed.
-	secevt.nat_dst_port	N		Destination port number after NAT is performed.
-	secevt.verdict		N		The verdict (ACCEPT, REJECT, ...)
-	secevt.in_iface		N		Input interface name if applicable
-	secevt.out_iface	N		Output interface name if applicable
-	secevt.zone		N		Zone name if applicable
-	secevt.details		N		The kind of event that happened.
+	secevt.verdict		N		The verdict (ACCEPT, REJECT, ...), would need to be uniformized
+	secevt.details		N		other information that seem relevant
+
+Schema: natevt
+Status: experimental
+Description: NAT Event Schema
+	This schema describes events that perform Network Address
+	Translation events.  It is not common to use this without also using
+	flowevt as the base flow information is described there.
+Attributes:
+	NV pair name		Mandatory	Description
+	natevt.nat_src_ip	Y		Source IP address after NAT is performed.
+	natevt.nat_src_port	Y		Source port number after NAT is performed.
+	natevt.nat_dst_ip	Y		Destination IP address after NAT is performed.
+	natevt.nat_dst_port	Y		Destination port number after NAT is performed.
+	natevt.details		N		other information that seem relevant
