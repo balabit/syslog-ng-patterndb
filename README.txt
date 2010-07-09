@@ -147,6 +147,90 @@ their own schemas for in-house applications, syslog-ng would work with those
 just as well, but we strongly suggest that even in-house patterns use the
 same naming structure as described here in this document.
 
+Combining schemas
+=================
+
+Since our aim is to keep schemas as clean as possible, avoiding the addition
+of newer and newer name-value pairs to a generic schema in order to support
+a given application should be avoided if possible.
+
+Therefore our idea is to make it possible to combine schemas when extracting
+fields from a single message. The best way to understand this is to use a
+concrete example.
+
+Firewall events are usually comprised of:
+  * an IP tuple (protocol, addresses, ports)
+  * a verdict (ACCEPT or DROP)
+
+However there are related events that should also be interpreted as firewall
+events, however they'd add further fields into the mix, not that strictly
+part of our original "Firewall events":
+
+  * a NAT translation (IP tuple before and after the translation)
+
+Of course the IP tuple _before_ the translation is the same as the IP tuple
+in our original firewall event, however the tuple after the translation is
+certainly different.
+
+What can we do with the NAT information?
+
+The simplest solution would be to shove those NAT fields into the firewall
+event, thus it could carry this kind of information as well. The problem is
+that, quite possibly, the set of these name-value pairs would be
+ever-expanding.
+
+The solution is to create multiple, distinct schamas and allow them to be
+combined.
+
+E.g. given the SIEM-like event format that combines IP tuple, a verdict and
+NAT information, we create 3 schemas:
+  * flowevt: to contain the base IP tuple
+  * secevt: to contain the verdict
+  * natevt: to contain the NAT tuple
+
+Combining basically means the following:
+  * the message will get 3 tags (identifying 3 schemas)
+  * the different information will be filled into fields defined by either
+    of the schemas
+
+Storing messages
+================
+
+It is not strictly the scope of this document how the parsed messages will
+get stored in persistent storage, however it is useful to know define what
+we think are viable possibilities in representing the structured data that
+patterndb produces.
+
+  * generic SQL tables (slow but readable):
+    * each message gets a unique ID (given by syslog-ng)
+    * each schema gets its own SQL table, structure:  message ID + schema fields
+    * query:
+      * fetch by schema:
+         SELECT * FROM schema;
+      * fetch by a combination of 3 schemas:
+         SELECT * FROM schema1, schema2, schema3 WHERE schema1.id = schema2.id AND schema2.id = schema3.id;
+
+  * less generic SQL table (fast, but less readable)
+    * a given combination of (possibly independent) schemas are stored in
+      a single SQL table
+    * each name-value pair gets a type-specific field (i1, i2, i3 for
+      integers, s1, s2, s3 for strings)
+    * schema names are stored in the table as a multi-attribute-field
+    * query:
+      * fetch by schema:
+        SELECT * FROM table WHERE schema LIKE '%schema%'
+
+
+Ruleset/rule organization
+=========================
+
+TBD
+
+Identifying patterns
+====================
+
+ID vs. UUID discussion
+
 Files & directories
 ===================
 
