@@ -105,7 +105,7 @@ Likewise, my TCP example would use:
 Additional rules:
   * schema & NV pair names should relate to the event type that it describes
   * schema & NV pair names are case-sensitive
-  * schema @ NV pair names should only contain alphanumeric characters (a-zA-Z0-9)
+  * schema @ NV pair names should only contain alphanumeric characters: [_\.a-zA-Z0-9]+
   * only one dot should be present in NV pair names, which separates the
     schema prefix from the attribute name
 
@@ -201,7 +201,7 @@ get stored in persistent storage, however it is useful to know define what
 we think are viable possibilities in representing the structured data that
 patterndb produces.
 
-  * generic SQL tables (slow but readable):
+  * per-schema SQL tables (slow but readable):
     * each message gets a unique ID (given by syslog-ng)
     * each schema gets its own SQL table, structure:  message ID + schema fields
     * query:
