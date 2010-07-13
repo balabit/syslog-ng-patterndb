@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<patterndb version='3' pub_date='2010-07-13'>
+  <ruleset name='opensshd' id='2448293e-6d1c-412c-a418-a80025639511'>
+    <description>
+      This ruleset covers the OpenSSH server.
+    </description>
+    <url>www.openssh.com</url>
+    <pattern>sshd</pattern>
+    <rules>
+      <rule provider="patterndb" id="4dd5a329-da83-4876-a431-ddcb59c2858c" class="system">
+        <patterns>
+          <pattern>Accepted @STRING:usracct.authmethod@ for @STRING:usracct.username@ from @IPv4:temp.src_ip@ port @NUMBER:temp.src_port@ @STRING:usracct.service@</pattern>
+        </patterns>
+        <examples>
+          <example>Accepted password for bazsi from 127.0.0.1 port 48650 ssh2</example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="usracct.device">${temp.src_ip}:${temp.src_port}</value>
+          <value name="secevt.verdict">ACCEPT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+      <rule provider="patterndb" id="aecda233-3d80-48cd-a72b-4896f58069c8" class="system">
+        <patterns>
+          <pattern>Failed @STRING:usracct.authmethod@ for @STRING:usracct.username@ from @IPv4:temp.src_ip@ port @NUMBER:temp.src_port@ @STRING:usracct.service@</pattern>
+        </patterns>
+        <examples>
+          <example>Failed password for bazsi from 127.0.1.1 port 44637 ssh2</example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="usracct.device">${temp.src_ip}:${temp.src_port}</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+      <rule provider="patterndb" id="9febec68-13ef-4ed2-97f3-689df4d49a8a" class="system">
+        <patterns>
+          <pattern>pam_unix(sshd:session): session closed for user @STRING:usracct.username:@</pattern>
+        </patterns>
+        <examples>
+          <example>pam_unix(sshd:session): session closed for user bazsi</example>
+        </examples>
+        <values>
+          <value name="usracct.type">logout</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+        </tags>
+      </rule>
+    </rules>
+  </ruleset>
+</patterndb>
