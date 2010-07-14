@@ -9,7 +9,7 @@
     <rules>
       <rule provider="patterndb" id="4dd5a329-da83-4876-a431-ddcb59c2858c" class="system">
         <patterns>
-          <pattern>Accepted @STRING:usracct.authmethod@ for @STRING:usracct.username@ from @IPv4:temp.src_ip@ port @NUMBER:temp.src_port@ @STRING:usracct.service@</pattern>
+          <pattern>Accepted @ESTRING:usracct.authmethod: @for @ESTRING:usracct.username: @from @ESTRING:temp.src_ip: @port @ESTRING:temp.src_port: @@ANYSTRING:usracct.service@</pattern>
         </patterns>
         <examples>
           <example>
@@ -36,7 +36,7 @@
       </rule>
       <rule provider="patterndb" id="aecda233-3d80-48cd-a72b-4896f58069c8" class="system">
         <patterns>
-          <pattern>Failed @STRING:usracct.authmethod@ for @STRING:usracct.username@ from @IPv4:temp.src_ip@ port @NUMBER:temp.src_port@ @STRING:usracct.service@</pattern>
+          <pattern>Failed @ESTRING:usracct.authmethod: @for @ESTRING:usracct.username: @from @ESTRING:temp.src_ip: @port @ESTRING:temp.src_port: @@ANYSTRING:usracct.service@</pattern>
         </patterns>
         <examples>
           <example>
@@ -63,7 +63,7 @@
       </rule>
       <rule provider="patterndb" id="9febec68-13ef-4ed2-97f3-689df4d49a8a" class="system">
         <patterns>
-          <pattern>pam_unix(sshd:session): session closed for user @STRING:usracct.username:@</pattern>
+          <pattern>pam_unix(sshd:session): session closed for user @ANYSTRING:usracct.username:@</pattern>
         </patterns>
         <examples>
           <example>
