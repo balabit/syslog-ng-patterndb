@@ -12,7 +12,15 @@
           <pattern>Accepted @STRING:usracct.authmethod@ for @STRING:usracct.username@ from @IPv4:temp.src_ip@ port @NUMBER:temp.src_port@ @STRING:usracct.service@</pattern>
         </patterns>
         <examples>
-          <example>Accepted password for bazsi from 127.0.0.1 port 48650 ssh2</example>
+          <example>
+           <test_message program="sshd">Accepted password for bazsi from 127.0.0.1 port 48650 ssh2</test_message>
+           <test_values>
+            <test_value name="usracct.username">bazsi</test_value>
+            <test_value name="usracct.authmethod">password</test_value>
+            <test_value name="usracct.device">127.0.0.1:48650</test_value>
+            <test_value name="usracct.service">ssh2</test_value>
+           </test_values>
+          </example>
         </examples>
         <values>
           <value name="usracct.type">login</value>
@@ -31,7 +39,15 @@
           <pattern>Failed @STRING:usracct.authmethod@ for @STRING:usracct.username@ from @IPv4:temp.src_ip@ port @NUMBER:temp.src_port@ @STRING:usracct.service@</pattern>
         </patterns>
         <examples>
-          <example>Failed password for bazsi from 127.0.1.1 port 44637 ssh2</example>
+          <example>
+           <test_message program="sshd">Failed password for bazsi from 127.0.1.1 port 44637 ssh2</test_message>
+           <test_values>
+            <test_value name="usracct.username">bazsi</test_value>
+            <test_value name="usracct.authmethod">password</test_value>
+            <test_value name="usracct.device">127.0.1.1:44637</test_value>
+            <test_value name="usracct.service">ssh2</test_value>
+           </test_values>
+          </example>
         </examples>
         <values>
           <value name="usracct.type">login</value>
@@ -50,7 +66,12 @@
           <pattern>pam_unix(sshd:session): session closed for user @STRING:usracct.username:@</pattern>
         </patterns>
         <examples>
-          <example>pam_unix(sshd:session): session closed for user bazsi</example>
+          <example>
+           <test_message program="sshd">pam_unix(sshd:session): session closed for user bazsi</test_message>
+           <test_values>
+            <test_value name="usracct.username">bazsi</test_value>
+           </test_values>
+          </example>
         </examples>
         <values>
           <value name="usracct.type">logout</value>
