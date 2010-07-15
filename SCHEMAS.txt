@@ -1,3 +1,13 @@
+Schama: root
+Status: experimental
+Description: root level schema
+	This schema defines the fields that exist above all schemas.
+	Name-value pairs here do not use a prefix.
+Attributes:
+	NV pair name		Mandatory	Description
+	details			N		Misc information that relates to the event.
+
+
 Schema: usracct
 Status: experimental
 Description: User Accounting Schema
@@ -11,7 +21,6 @@ Attributes:
 	usracct.application	N		the application that implemented the service if applicable (e.g. "sshd", "vncserver", etc.)
 	usracct.device		N		the device that was used for the access if applicable (client computer, terminal line, etc)
 	usracct.authmethod	N		authentication method
-	usracct.details		N		other information that seem relevant
 
 
 Schema: flowevt
@@ -31,7 +40,6 @@ Attributes:
 	flowevt.out_zone	N		Zone name if applicable
 	flowevt.size_bytes	N		The size of the transaction if applicable
 	flowevt.size_packets	N		The number of packets of the transaction if applicable.
-	flowevt.details		N		other information that seem relevant
 
 Schema: secevt
 Status: experimental
@@ -43,7 +51,6 @@ Description: Security Event Schema
 Attributes:
 	NV pair name		Mandatory	Description
 	secevt.verdict		N		The verdict (ACCEPT, REJECT, ...), would need to be uniformized
-	secevt.details		N		other information that seem relevant
 
 Schema: natevt
 Status: experimental
@@ -57,4 +64,3 @@ Attributes:
 	natevt.nat_src_port	Y		Source port number after NAT is performed.
 	natevt.nat_dst_ip	Y		Destination IP address after NAT is performed.
 	natevt.nat_dst_port	Y		Destination port number after NAT is performed.
-	natevt.details		N		other information that seem relevant

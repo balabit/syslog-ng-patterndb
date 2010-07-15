@@ -193,6 +193,19 @@ Combining basically means the following:
   * the different information will be filled into fields defined by either
     of the schemas
 
+The root schema
+===============
+
+There are name-value pairs that can exist in all schemas. For example the
+"details" name-value pair created to contain misc information related to the
+event would be present in all of our schemas.
+
+So instead of creating a "secevt.details" and "flowevt.details" and so on,
+we only create a single "details" name-value pair.
+
+These name-value pairs are described in the "root" schema in the SCHEMAS.txt
+file.
+
 Storing messages
 ================
 
