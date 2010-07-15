@@ -59,6 +59,34 @@
           <tag>secevt</tag>
         </tags>
       </rule>
+
+      <rule provider="patterndb" id="1a8891ff-6b86-4da5-b937-b789c76ef353" class="system">
+        <patterns>
+          <pattern>Failed @ESTRING:usracct.authmethod: @for invalid user @ESTRING:usracct.username: @from @ESTRING:usracct.device: @port @ESTRING:: @@ANYSTRING:usracct.service@</pattern>
+        </patterns>
+        <examples>
+          <example>
+           <test_message program="sshd">Failed password for invalid user siem from 127.0.0.1 port 37397 ssh2</test_message>
+           <test_values>
+            <test_value name="usracct.username">siem</test_value>
+            <test_value name="usracct.authmethod">password</test_value>
+            <test_value name="usracct.device">127.0.0.1</test_value>
+            <test_value name="usracct.service">ssh2</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+
       <rule provider="patterndb" id="9febec68-13ef-4ed2-97f3-689df4d49a8a" class="system">
         <patterns>
           <pattern>pam_unix(sshd:session): session closed for user @ANYSTRING:usracct.username:@</pattern>
