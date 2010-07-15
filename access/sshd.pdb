@@ -144,6 +144,29 @@
           <tag>usracct</tag>
         </tags>
       </rule>
+
+      <rule provider="patterndb" id="a2f96b71-6c5e-413e-92c2-75e9d66c0119" class="system">
+        <patterns>
+          <pattern>session closed for user @ANYSTRING:usracct.username:@</pattern>
+        </patterns>
+        <examples>
+          <example>
+           <test_message program="sshd(pam_unix)">session closed for user bazsi</test_message>
+           <test_values>
+            <test_value name="usracct.username">bazsi</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">logout</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+        </tags>
+      </rule>
+
     </rules>
   </ruleset>
 </patterndb>
