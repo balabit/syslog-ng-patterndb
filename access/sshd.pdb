@@ -47,6 +47,15 @@
             <test_value name="usracct.service">ssh2</test_value>
            </test_values>
           </example>
+          <example>
+           <test_message program="sshd">Failed password for root from ::ffff:10.10.10.4 port 4027 ssh2</test_message>
+           <test_values>
+            <test_value name="usracct.username">root</test_value>
+            <test_value name="usracct.authmethod">password</test_value>
+            <test_value name="usracct.device">::ffff:10.10.10.4</test_value>
+            <test_value name="usracct.service">ssh2</test_value>
+           </test_values>
+          </example>
         </examples>
         <values>
           <value name="usracct.type">login</value>
@@ -71,6 +80,33 @@
             <test_value name="usracct.username">siem</test_value>
             <test_value name="usracct.authmethod">password</test_value>
             <test_value name="usracct.device">127.0.0.1</test_value>
+            <test_value name="usracct.service">ssh2</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+
+      <rule provider="patterndb" id="406d48a5-fef4-4367-9b5a-5b20efeed22e" class="system">
+        <patterns>
+          <pattern>Failed @ESTRING:usracct.authmethod: @for illegal user @ESTRING:usracct.username: @from @ESTRING:usracct.device: @port @ESTRING:: @@ANYSTRING:usracct.service@</pattern>
+        </patterns>
+        <examples>
+          <example>
+           <test_message program="sshd">Failed password for illegal user admin from ::ffff:10.10.10.135 port 45629 ssh2</test_message>
+           <test_values>
+            <test_value name="usracct.username">admin</test_value>
+            <test_value name="usracct.authmethod">password</test_value>
+            <test_value name="usracct.device">::ffff:10.10.10.135</test_value>
             <test_value name="usracct.service">ssh2</test_value>
            </test_values>
           </example>
