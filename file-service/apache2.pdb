@@ -1,6 +1,6 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<patterndb version='3' pub_date='2010-07-13'>
-  <ruleset name='apache2' id=''>
+<?xml version="1.0" encoding="UTF-8"?>
+<patterndb version="3" pub_date="2010-07-13">
+  <ruleset name='apache2' id="cb51feb3-0e66-49aa-a177-5ad2fca515a8">
     <description>
       This ruleset covers the Apache2 server, assuming it logs directly into
       syslog using the "syslog" parameter of the ErrorLog directives.  This
