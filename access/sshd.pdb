@@ -9,7 +9,7 @@
     <rules>
       <rule provider="patterndb" id="4dd5a329-da83-4876-a431-ddcb59c2858c" class="system">
         <patterns>
-          <pattern>Accepted @ESTRING:usracct.authmethod: @for @ESTRING:usracct.username: @from @ESTRING:temp.src_ip: @port @ESTRING:temp.src_port: @@ANYSTRING:usracct.service@</pattern>
+          <pattern>Accepted @ESTRING:usracct.authmethod: @for @ESTRING:usracct.username: @from @ESTRING:usracct.device: @port @ESTRING:: @@ANYSTRING:usracct.service@</pattern>
         </patterns>
         <examples>
           <example>
@@ -17,7 +17,7 @@
            <test_values>
             <test_value name="usracct.username">bazsi</test_value>
             <test_value name="usracct.authmethod">password</test_value>
-            <test_value name="usracct.device">127.0.0.1:48650</test_value>
+            <test_value name="usracct.device">127.0.0.1</test_value>
             <test_value name="usracct.service">ssh2</test_value>
            </test_values>
           </example>
@@ -26,7 +26,6 @@
           <value name="usracct.type">login</value>
           <value name="usracct.sessionid">$PID</value>
           <value name="usracct.application">$PROGRAM</value>
-          <value name="usracct.device">${temp.src_ip}:${temp.src_port}</value>
           <value name="secevt.verdict">ACCEPT</value>
         </values>
         <tags>
@@ -36,7 +35,7 @@
       </rule>
       <rule provider="patterndb" id="aecda233-3d80-48cd-a72b-4896f58069c8" class="system">
         <patterns>
-          <pattern>Failed @ESTRING:usracct.authmethod: @for @ESTRING:usracct.username: @from @ESTRING:temp.src_ip: @port @ESTRING:temp.src_port: @@ANYSTRING:usracct.service@</pattern>
+          <pattern>Failed @ESTRING:usracct.authmethod: @for @ESTRING:usracct.username: @from @ESTRING:usracct.device: @port @ESTRING:: @@ANYSTRING:usracct.service@</pattern>
         </patterns>
         <examples>
           <example>
@@ -44,7 +43,7 @@
            <test_values>
             <test_value name="usracct.username">bazsi</test_value>
             <test_value name="usracct.authmethod">password</test_value>
-            <test_value name="usracct.device">127.0.1.1:44637</test_value>
+            <test_value name="usracct.device">127.0.1.1</test_value>
             <test_value name="usracct.service">ssh2</test_value>
            </test_values>
           </example>
@@ -53,7 +52,6 @@
           <value name="usracct.type">login</value>
           <value name="usracct.sessionid">$PID</value>
           <value name="usracct.application">$PROGRAM</value>
-          <value name="usracct.device">${temp.src_ip}:${temp.src_port}</value>
           <value name="secevt.verdict">REJECT</value>
         </values>
         <tags>
