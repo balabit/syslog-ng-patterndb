@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patterndb version="3" pub_date="2010-07-13">
+  <ruleset name="VMWare ESX" id="5ba87c8b-4d0c-4037-b135-bf91b04751ca">
+    <description>
+      Ruleset coverin VMWare ESX logs.
+    </description>
+    <url>www.vmware.com</url>
+    <pattern>/usr/lib/vmware/hostd/vmware-hostd</pattern>
+    <rules>
+      <rule provider="patterndb" id="7aedf2f5-6eea-4b70-846b-5d10d77ee175" class="system">
+        <patterns>
+          <pattern>Accepted @ESTRING:usracct.authmethod: @for user @ESTRING:usracct.username: @from @IPv4:usracct.device@</pattern>
+        </patterns>
+        <examples>
+          <example>
+           <test_message program="/usr/lib/vmware/hostd/vmware-hostd">Accepted password for user root from 127.0.0.1</test_message>
+           <test_values>
+            <test_value name="usracct.username">root</test_value>
+            <test_value name="usracct.device">127.0.0.1</test_value>
+            <test_value name="usracct.service">vmware</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.application">vmware-hostd</value>
+          <value name="usracct.service">vmware</value>
+          <value name="secevt.verdict">ACCEPT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+    </rules>
+  </ruleset>
+</patterndb>
