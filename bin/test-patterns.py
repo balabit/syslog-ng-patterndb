@@ -1,8 +1,13 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 import sys, os
 from lxml import etree
 from subprocess import *
+import sys
+import codecs
+
+sys.stdout = codecs.getwriter('utf8')(sys.stdout)
 
 if len(sys.argv) != 3:
     print "Usage:\ntest-patterns.py patterndb.xml pdbtool"
