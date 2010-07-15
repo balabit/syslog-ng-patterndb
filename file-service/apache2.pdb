@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<patterndb version='3' pub_date='2010-07-13'>
+  <ruleset name='apache2' id=''>
+    <description>
+      This ruleset covers the Apache2 server, assuming it logs directly into
+      syslog using the "syslog" parameter of the ErrorLog directives.  This
+      means that we don't have a timestamp in front of the line.  If you are
+      reading this from a log file, be sure to truncate the header using a
+      rewrite rule.
+    </description>
+    <url>httpd.apache.org</url>
+    <pattern>apache2</pattern>
+    <rules>
+      <rule provider="patterndb" id="5402ccee-d854-4f1e-877c-3c9332b6cc0e" class="system">
+        <patterns>
+          <pattern>[error] [client @ESTRING:usracct.device:]@ user @ESTRING:usracct.username::@ authentication failure for @QSTRING:usracct.object:"@: @ANYSTRING:details@</pattern>
+        </patterns>
+        <examples>
+          <example>
+           <test_message program="sshd">[error] [client 10.10.66.7] user xxxx: authentication failure for "/": Password Mismatch</test_message>
+           <test_values>
+            <test_value name="usracct.username">xxxx</test_value>
+            <test_value name="usracct.device">10.10.66.7</test_value>
+            <test_value name="usracct.service">http</test_value>
+            <test_value name="usracct.object">/</test_value>
+            <test_value name="details">Password Mismatch</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+    </rules>
+  </ruleset>
+</patterndb>
