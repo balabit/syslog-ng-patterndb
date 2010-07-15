@@ -19,6 +19,7 @@ Attributes:
 	usracct.sessionid	Y		an identifier of this session to match login/logout records
 	usracct.service		N		the service that the given user was using if applicable ("terminal", "ras", "desktop", etc.)
 	usracct.application	N		the application that implemented the service if applicable (e.g. "sshd", "vncserver", etc.)
+	usracct.object		N		the object being accessed if applicable (e.g. file name, database, etc.)
 	usracct.device		N		the device that was used for the access if applicable (client computer, terminal line, etc)
 	usracct.authmethod	N		authentication method
 
