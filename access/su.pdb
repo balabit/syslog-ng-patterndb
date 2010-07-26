@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<patterndb version='3' pub_date='2010-07-13'>
+  <ruleset name='su' id='e5425020-1260-4455-b1f6-60d6d2ca6148'>
+    <description>
+      This ruleset covers the su command available on UNIXes.
+    </description>
+    <pattern>su</pattern>
+    <rules>
+
+      <rule provider="patterndb" id="5e792010-3f1f-4a54-9ecd-aef38d05184f" class="system">
+        <!-- login success -->
+        <patterns>
+          <pattern>pam_unix(su:session): session opened for user root by @ESTRING:usracct.username:(@uid=@NUMBER::@)</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="su">pam_unix(su:session): session opened for user root by phemmer(uid=8129)</test_message>
+            <test_values>
+              <test_value name="usracct.username">phemmer</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">ACCEPT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+
+
+      <rule provider="patterndb" id="35336794-0ad8-4255-b482-b35aa66712a8" class="system">
+        <!-- login failure -->
+        <patterns>
+          <pattern>pam_unix(su:auth): authentication failure; logname=@ESTRING:temp.su_username: @uid=@NUMBER::@ euid=@NUMBER::@ tty=@ESTRING:temp.su_tty: @ruser=@ESTRING:temp.su_ruser: @rhost=  user=@ESTRING:usracct.username:@</pattern>
+          <pattern>pam_unix(su:auth): authentication failure; logname=@ESTRING:temp.su_username: @uid=@NUMBER::@ euid=@NUMBER::@ tty=@ESTRING:temp.su_tty: @ruser=@ESTRING:temp.su_ruser: @rhost=@ESTRING:temp.su_rhost: @user=@ANYSTRING:usracct.username: @</pattern>
+        </patterns>
+        <examples>
+          <example>
+           <test_message program="su">pam_unix(su:auth): authentication failure; logname=phemmer uid=8129 euid=0 tty=pts/13 ruser=phemmer rhost=  user=root</test_message>
+           <test_values>
+             <test_value name="usracct.username">root</test_value>
+             <test_value name="usracct.device">phemmer@pts/13</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="usracct.device">${temp.su_username}@${temp.su_tty}</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+
+      <rule provider="patterndb" id="4cf21558-f828-4a88-a513-e1bb39a2f0a9" class="system">
+        <!-- logout -->
+        <patterns>
+          <pattern>pam_unix(su:session): session closed for user @ANYSTRING:usracct.username:@</pattern>
+        </patterns>
+        <examples>
+          <example>
+           <test_message program="su">pam_unix(su:session): session closed for user root</test_message>
+           <test_values>
+             <test_value name="usracct.username">root</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">logout</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+        </tags>
+      </rule>
+
+
+    </rules>
+  </ruleset>
+</patterndb>
