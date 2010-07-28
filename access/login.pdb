@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<patterndb version='3' pub_date='2010-07-13'>
+  <ruleset name='login' id="9e614124-e8ce-4c80-814a-f0af4d9a5c13">
+    <description>
+      This ruleset covers the login command used on telnet/serial line/console login.
+    </description>
+    <pattern>login</pattern>
+    <rules>
+
+      <rule provider="patterndb" id="830c7955-ebed-45a7-8d89-5eb98b44d204" class="system">
+        <!-- login success -->
+        <patterns>
+          <pattern>pam_unix(login:session): session opened for user @ESTRING:usracct.username: @by LOGIN(uid=0)</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="login">pam_unix(login:session): session opened for user root by LOGIN(uid=0)</test_message>
+            <test_values>
+              <test_value name="usracct.username">root</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.service">terminal</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">ACCEPT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+
+
+      <rule provider="patterndb" id="89c9a0f5-0d6f-4608-89d0-78c420143f8a" class="system">
+        <!-- login failure, bad password -->
+        <patterns>
+          <pattern>pam_unix(login:auth): authentication failure; logname=@ESTRING:usracct.username: @uid=0 euid=0 tty=@ESTRING:usracct.device: @ruser= rhost=</pattern>
+        </patterns>
+        <examples>
+          <example>
+           <test_message program="login">pam_unix(login:auth): authentication failure; logname=bazsi uid=0 euid=0 tty=/dev/tty1 ruser= rhost=</test_message>
+           <test_values>
+             <test_value name="usracct.username">bazsi</test_value>
+             <test_value name="usracct.device">/dev/tty1</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+
+      <rule provider="patterndb" id="35336794-0ad8-4255-b482-b35aa66712a8" class="system">
+        <!-- login failure, bad username password -->
+        <patterns>
+          <pattern>FAILED LOGIN (@NUMBER::@) on @QSTRING:usracct.device:'@ FOR 'UNKNOWN', Authentication failure</pattern>
+        </patterns>
+        <examples>
+          <example>
+           <test_message program="login">FAILED LOGIN (1) on '/dev/tty1' FOR 'UNKNOWN', Authentication failure</test_message>
+           <test_values>
+             <test_value name="usracct.username">n/a</test_value>
+             <test_value name="usracct.device">/dev/tty1</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.service">terminal</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="usracct.username">n/a</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+
+      <rule provider="patterndb" id="35336794-0ad8-4255-b482-b35aa66712a8" class="system">
+        <!-- login failure, bad username password -->
+        <patterns>
+          <pattern>FAILED LOGIN @NUMBER::@ FROM @ESTRING:usracct.device: @FOR @ESTRING:usracct.username:,@ User not known to the underlying authentication module</pattern>
+        </patterns>
+        <examples>
+          <example>
+           <test_message program="login">FAILED LOGIN 2 FROM (null) FOR shdga, User not known to the underlying authentication module</test_message>
+           <test_values>
+             <test_value name="usracct.username">shdga</test_value>
+             <test_value name="usracct.device">(null)</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.service">terminal</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+
+      <rule provider="patterndb" id="4cf21558-f828-4a88-a513-e1bb39a2f0a9" class="system">
+        <!-- logout -->
+        <patterns>
+          <pattern>pam_unix(login:session): session closed for user @ANYSTRING:usracct.username:@</pattern>
+        </patterns>
+        <examples>
+          <example>
+           <test_message program="login">pam_unix(login:session): session closed for user root</test_message>
+           <test_values>
+             <test_value name="usracct.username">root</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">logout</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+        </tags>
+      </rule>
+
+    </rules>
+  </ruleset>
+</patterndb>
