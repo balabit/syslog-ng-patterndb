@@ -72,6 +72,33 @@
         </tags>
       </rule>
 
+      <rule provider="patterndb" id="693a8131-6a03-423a-9dc4-a310591b3420" class="system">
+        <!-- login failure -->
+        <patterns>
+          <pattern>@ESTRING:temp.sudo_username: @: no passwd entry for @ESTRING:usracct.username:!@</pattern>
+        </patterns>
+        <examples>
+          <example>
+           <test_message program="sudo">phemmer : no passwd entry for asdfh!</test_message>
+           <test_values>
+             <test_value name="usracct.username">asdfh</test_value>
+             <test_value name="usracct.device">phemmer@unknown</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="usracct.device">${temp.sudo_username}@unknown</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+
       <rule provider="patterndb" id="24437494-da56-4a91-8ea4-2eeab140d3a2" class="system">
         <!-- logout -->
         <patterns>
