@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<patterndb version='3' pub_date='2010-07-13'>
+  <ruleset name='su' id='1f5fd75e-66f9-4598-8326-36e5bbd5675c'>
+    <description>
+      This ruleset covers the sudo command available on UNIXes.
+    </description>
+    <pattern>sudo</pattern>
+    <rules>
+
+      <rule provider="patterndb" id="ed8a54b4-d272-4bfb-a523-1eccd6f3fc7c" class="system">
+        <!-- login success -->
+        <patterns>
+          <!-- sudo logs the username right-aligned to 8 chars -->
+          <pattern>@ESTRING:temp.sudo_username: @: HOST=@ESTRING:temp.sudo_host: @: TTY=@ESTRING:temp.sudo_tty: @; PWD=@ESTRING:temp.sudo_pwd: ;@ USER=@ESTRING:usracct.username: ;@ COMMAND=@ANYSTRING:temp.sudo_command@</pattern>
+          <pattern> @ESTRING:temp.sudo_username: @: HOST=@ESTRING:temp.sudo_host: @: TTY=@ESTRING:temp.sudo_tty: @; PWD=@ESTRING:temp.sudo_pwd: ;@ USER=@ESTRING:usracct.username: ;@ COMMAND=@ANYSTRING:temp.sudo_command@</pattern>
+          <pattern>  @ESTRING:temp.sudo_username: @: HOST=@ESTRING:temp.sudo_host: @: TTY=@ESTRING:temp.sudo_tty: @; PWD=@ESTRING:temp.sudo_pwd: ;@ USER=@ESTRING:usracct.username: ;@ COMMAND=@ANYSTRING:temp.sudo_command@</pattern>
+          <pattern>   @ESTRING:temp.sudo_username: @: HOST=@ESTRING:temp.sudo_host: @: TTY=@ESTRING:temp.sudo_tty: @; PWD=@ESTRING:temp.sudo_pwd: ;@ USER=@ESTRING:usracct.username: ;@ COMMAND=@ANYSTRING:temp.sudo_command@</pattern>
+          <pattern>    @ESTRING:temp.sudo_username: @: HOST=@ESTRING:temp.sudo_host: @: TTY=@ESTRING:temp.sudo_tty: @; PWD=@ESTRING:temp.sudo_pwd: ;@ USER=@ESTRING:usracct.username: ;@ COMMAND=@ANYSTRING:temp.sudo_command@</pattern>
+          <pattern>     @ESTRING:temp.sudo_username: @: HOST=@ESTRING:temp.sudo_host: @: TTY=@ESTRING:temp.sudo_tty: @; PWD=@ESTRING:temp.sudo_pwd: ;@ USER=@ESTRING:usracct.username: ;@ COMMAND=@ANYSTRING:temp.sudo_command@</pattern>
+          <pattern>      @ESTRING:temp.sudo_username: @: HOST=@ESTRING:temp.sudo_host: @: TTY=@ESTRING:temp.sudo_tty: @; PWD=@ESTRING:temp.sudo_pwd: ;@ USER=@ESTRING:usracct.username: ;@ COMMAND=@ANYSTRING:temp.sudo_command@</pattern>
+          <pattern>       @ESTRING:temp.sudo_username: @: HOST=@ESTRING:temp.sudo_host: @: TTY=@ESTRING:temp.sudo_tty: @; PWD=@ESTRING:temp.sudo_pwd: ;@ USER=@ESTRING:usracct.username: ;@ COMMAND=@ANYSTRING:temp.sudo_command@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="sudo">  phemmer : HOST=admin02 : TTY=pts/13 ; PWD=/home/phemmer ; USER=root ; COMMAND=/bin/ls</test_message>
+            <test_values>
+              <test_value name="usracct.username">root</test_value>
+              <test_value name="usracct.device">phemmer@pts/13</test_value>
+              <test_value name="usracct.object">/home/phemmer$ /bin/ls</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="usracct.device">${temp.sudo_username}@${temp.sudo_tty}</value>
+          <value name="usracct.object">${temp.sudo_pwd}$$ ${temp.sudo_command}</value>
+          <value name="secevt.verdict">ACCEPT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+
+      <rule provider="patterndb" id="89c9a0f5-0d6f-4608-89d0-78c420143f8a" class="system">
+        <!-- login failure -->
+        <patterns>
+          <pattern>pam_unix(sudo:auth): authentication failure; logname=@ESTRING:temp.sudo_username: @uid=@NUMBER::@ euid=@NUMBER::@ tty=@ESTRING:temp.sudo_tty: @ruser=@ESTRING:temp.sudo_ruser: @rhost=  user=@ESTRING:usracct.username:@</pattern>
+          <pattern>pam_unix(sudo:auth): authentication failure; logname=@ESTRING:temp.sudo_username: @uid=@NUMBER::@ euid=@NUMBER::@ tty=@ESTRING:temp.sudo_tty: @ruser=@ESTRING:temp.sudo_ruser: @rhost=@ESTRING:temp.sudo_rhost: @user=@ANYSTRING:usracct.username: @</pattern>
+        </patterns>
+        <examples>
+          <example>
+           <test_message program="sudo">pam_unix(sudo:auth): authentication failure; logname=phemmer uid=0 euid=0 tty=/dev/pts/13 ruser= rhost=  user=phemmer</test_message>
+           <test_values>
+             <test_value name="usracct.username">phemmer</test_value>
+             <test_value name="usracct.device">phemmer@/dev/pts/13</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="usracct.device">${temp.sudo_username}@${temp.sudo_tty}</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+
+      <rule provider="patterndb" id="24437494-da56-4a91-8ea4-2eeab140d3a2" class="system">
+        <!-- logout -->
+        <patterns>
+          <pattern>pam_unix(sudo:session): session closed for user @ANYSTRING:usracct.username:@</pattern>
+        </patterns>
+        <examples>
+          <example>
+           <test_message program="sudo">pam_unix(sudo:session): session closed for user root</test_message>
+           <test_values>
+             <test_value name="usracct.username">root</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">logout</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+        </tags>
+      </rule>
+
+
+    </rules>
+  </ruleset>
+</patterndb>
