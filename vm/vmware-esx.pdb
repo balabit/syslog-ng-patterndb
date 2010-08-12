@@ -32,6 +32,32 @@
           <tag>secevt</tag>
         </tags>
       </rule>
+
+      <rule provider="patterndb" id="bdd0b237-a689-4c6a-baf0-1f47b82be3e0" class="system">
+        <patterns>
+          <pattern>Rejected @ESTRING:usracct.authmethod: @for user @ESTRING:usracct.username: @from @IPv4:usracct.device@</pattern>
+        </patterns>
+        <examples>
+          <example>
+           <test_message program="/usr/lib/vmware/hostd/vmware-hostd">Rejected password for user asdf from 127.0.0.1</test_message>
+           <test_values>
+            <test_value name="usracct.username">asdf</test_value>
+            <test_value name="usracct.device">127.0.0.1</test_value>
+            <test_value name="usracct.service">vmware</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.application">vmware-hostd</value>
+          <value name="usracct.service">vmware</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
     </rules>
   </ruleset>
 </patterndb>
