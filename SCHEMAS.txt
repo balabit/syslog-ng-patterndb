@@ -15,7 +15,7 @@ Description: User Accounting Schema
 Attributes:
 	NV pair name		Mandatory	Description
 	usracct.type		Y		"login" or "logout"
-	usracct.username	Y		the name of the user
+	usracct.username	Y		the name of the user (or the string "n/a" where the info is not available"
 	usracct.sessionid	Y		an identifier of this session to match login/logout records
 	usracct.service		N		the service that the given user was using if applicable ("terminal", "ras", "desktop", etc.)
 	usracct.application	N		the application that implemented the service if applicable (e.g. "sshd", "vncserver", etc.)
