@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <patterndb version='3' pub_date='2010-07-13'>
-  <ruleset name='su' id='1f5fd75e-66f9-4598-8326-36e5bbd5675c'>
+  <ruleset name='sudo' id='1f5fd75e-66f9-4598-8326-36e5bbd5675c'>
     <description>
       This ruleset covers the sudo command available on UNIXes.
     </description>
