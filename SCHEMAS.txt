@@ -65,3 +65,28 @@ Attributes:
 	natevt.src_port		Y		Source port number after NAT is performed.
 	natevt.dst_ip		Y		Destination IP address after NAT is performed.
 	natevt.dst_port		Y		Destination port number after NAT is performed.
+
+Schema: dnsquery
+Status: experimental
+Description: DNS query logs
+	This schema is describing DNS query logs. Strongly bind inspired.
+Attributes:
+	NV pair name		Mandatory	Description
+	dnsquery.client_ip	N		Source IP address of the DNS request.
+	dnsquery.client_port	N		Source port
+	dnsquery.view		N		DNS view
+	dnsquery.query		Y		DNS query.
+	dnsquery.class		Y		DNS class (IN for internet)
+	dnsquery.type		Y		DNS record type to query (e.g. A, PTR, etc)
+	dnsquery.flags		N		DNS Request flags.
+
+Schema: dnslame
+Status: experimental
+Description: DNS logs for lame delegation.
+	This schema is for DNS lame logs, strongly bind inspired.
+Attributes:
+	NV pair name		Mandatory	Description
+	dnslame.client_ip	N		Source IP address of the DNS request.
+	dnslame.client_port	N		Source port
+	dnslame.query		N		DNS query that couldn't be resolved.
+	dnslame.reason		N		The reason the DNS request couldn't be fulfilled.
