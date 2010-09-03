@@ -34,7 +34,7 @@
       </rule>
 
 
-      <rule provider="patterndb" id="89c9a0f5-0d6f-4608-89d0-78c420143f8a" class="system">
+      <rule provider="patterndb" id="0a402690-e1b6-48e6-8e2d-8448b3f6a015" class="system">
         <!-- login failure, bad password -->
         <patterns>
           <pattern>pam_unix(login:auth): authentication failure; logname=@ESTRING:usracct.username: @uid=0 euid=0 tty=@ESTRING:usracct.device: @ruser= rhost=</pattern>
@@ -60,7 +60,7 @@
         </tags>
       </rule>
 
-      <rule provider="patterndb" id="35336794-0ad8-4255-b482-b35aa66712a8" class="system">
+      <rule provider="patterndb" id="416f7219-c5d5-4002-9a64-237922167026" class="system">
         <!-- login failure, bad username password -->
         <patterns>
           <pattern>FAILED LOGIN (@NUMBER::@) on @QSTRING:usracct.device:'@ FOR 'UNKNOWN', Authentication failure</pattern>
@@ -115,7 +115,7 @@
         </tags>
       </rule>
 
-      <rule provider="patterndb" id="4cf21558-f828-4a88-a513-e1bb39a2f0a9" class="system">
+      <rule provider="patterndb" id="17894adf-ab50-4e33-a25e-f1bc86a0f65f" class="system">
         <!-- logout -->
         <patterns>
           <pattern>pam_unix(login:session): session closed for user @ANYSTRING:usracct.username:@</pattern>
