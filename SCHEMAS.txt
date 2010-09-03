@@ -87,3 +87,4 @@ Description: DNS logs for lame delegation.
 Attributes:
 	NV pair name		Mandatory	Description
 	dnslame.reason		N		The reason the DNS request couldn't be fulfilled.
+	dnslame.zone		N		The lame zone.
