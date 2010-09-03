@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<patterndb version='3' pub_date='2010-07-13'>
+  <ruleset id="cd249b08-144a-4114-90ae-d594c4d08168" name="bind">
+    <description>
+      This ruleset covers the BIND DNS server.
+    </description>
+    <pattern>named</pattern>
+    <rules>
+      <rule id='8dda828c-8c03-48d8-8c27-031101ec0bca' provider='patterndb' class='info'>
+        <description>BIND 9.x lame server - see lib/dns/resolver.c</description>
+        <patterns>
+          <pattern>lame-servers: info: @ESTRING:dnslame.reason: resolving@ '@ESTRING:dnsqry.query:/@@STRING:dnsqry.type@/@STRING:dnsqry.class@': @IPvANY:dnsqry.client_ip@#@NUMBER:dnsqry.client_port@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="named">lame-servers: info: unexpected RCODE (REFUSED) resolving 'ns1.example.org/AAAA/IN': 192.0.2.1#53</test_message>
+           <test_values>
+            <test_value name="dnsqry.query">ns1.example.org</test_value>
+            <test_value name="dnsqry.type">AAAA</test_value>
+            <test_value name="dnsqry.class">IN</test_value>
+            <test_value name="dnsqry.client_ip">192.0.2.1</test_value>
+            <test_value name="dnsqry.client_port">53</test_value>
+            <test_value name="dnslame.reason">unexpected RCODE (REFUSED)</test_value>
+           </test_values>
+          </example>
+        </examples>
+	<tags>
+	  <tag>dnsqry</tag>
+	  <tag>dnslame</tag>
+	</tags>
+      </rule>
+
+      <rule id='d0ed98f4-7b4b-47e1-9ffe-8f145edf8e57' provider='patterndb' class='info'>
+        <description>BIND 9.x lame server - see lib/dns/resolver.c</description>
+        <patterns>
+          <pattern>lame-servers: info: lame server resolving @QSTRING:dnsqry.query:'@ (in @QSTRING:dnslame.zone:'@?): @IPvANY:dnsqry.client_ip@#@NUMBER:dnsqry.client_port@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="named">lame-servers: info: lame server resolving '1.2.0.192.in-addr.arpa' (in '2.0.192.in-addr.arpa'?): 192.2.0.1#53</test_message>
+           <test_values>
+            <test_value name="dnsqry.query">1.2.0.192.in-addr.arpa</test_value>
+            <test_value name="dnsqry.client_ip">192.2.0.1</test_value>
+            <test_value name="dnsqry.client_port">53</test_value>
+	    <test_value name="dnslame.zone">2.0.192.in-addr.arpa</test_value>
+            <test_value name="dnslame.reason">lame server</test_value>
+           </test_values>
+          </example>
+        </examples>
+	<values>
+           <value name="dnslame.reason">lame server</value>
+        </values>
+	<tags>
+	  <tag>dnsqry</tag>
+	  <tag>dnslame</tag>
+	</tags>
+      </rule>
+
+      <rule id='72a83ba7-4b8d-41c5-b284-514488e5fdd9' provider='patterndb' class='info'>
+        <description>BIND 9.x query</description>
+        <patterns>
+          <pattern>queries: info: client @IPvANY:dnsqry.client_ip@#@NUMBER:dnsqry.client_port@: view @STRING:dnsqry.view@: query: @ESTRING:dnsqry.query: @@STRING:dnsqry.class@ @STRING:dnsqry.type@ @ANYSTRING:dnsqry.flags@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="named">queries: info: client 192.0.2.1#1024: view external: query: . IN NS -</test_message>
+           <test_values>
+            <test_value name="dnsqry.query">.</test_value>
+            <test_value name="dnsqry.type">NS</test_value>
+            <test_value name="dnsqry.view">external</test_value>
+            <test_value name="dnsqry.class">IN</test_value>
+            <test_value name="dnsqry.client_ip">192.0.2.1</test_value>
+            <test_value name="dnsqry.client_port">1024</test_value>
+           </test_values>
+          </example>
+          <example>
+            <test_message program="named">queries: info: client 127.0.0.1#1024: view loopback: query: 1.0.0.127.in-addr.arpa IN PTR +</test_message>
+           <test_values>
+            <test_value name="dnsqry.query">1.0.0.127.in-addr.arpa</test_value>
+            <test_value name="dnsqry.type">PTR</test_value>
+            <test_value name="dnsqry.view">loopback</test_value>
+            <test_value name="dnsqry.class">IN</test_value>
+            <test_value name="dnsqry.client_ip">127.0.0.1</test_value>
+            <test_value name="dnsqry.client_port">1024</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <tags>
+          <tag>dnsqry</tag>
+        </tags>
+      </rule>
+
+    </rules>
+  </ruleset>
+</patterndb>
