@@ -61,7 +61,7 @@ Description: NAT Event Schema
 	flowevt as the base flow information is described there.
 Attributes:
 	NV pair name		Mandatory	Description
-	natevt.nat_src_ip	Y		Source IP address after NAT is performed.
-	natevt.nat_src_port	Y		Source port number after NAT is performed.
-	natevt.nat_dst_ip	Y		Destination IP address after NAT is performed.
-	natevt.nat_dst_port	Y		Destination port number after NAT is performed.
+	natevt.src_ip		Y		Source IP address after NAT is performed.
+	natevt.src_port		Y		Source port number after NAT is performed.
+	natevt.dst_ip		Y		Destination IP address after NAT is performed.
+	natevt.dst_port		Y		Destination port number after NAT is performed.
