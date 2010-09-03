@@ -17,7 +17,7 @@
         </patterns>
         <examples>
           <example>
-           <test_message program="sshd">[error] [client 10.10.66.7] user xxxx: authentication failure for "/": Password Mismatch</test_message>
+           <test_message program="apache2">[error] [client 10.10.66.7] user xxxx: authentication failure for "/": Password Mismatch</test_message>
            <test_values>
             <test_value name="usracct.username">xxxx</test_value>
             <test_value name="usracct.device">10.10.66.7</test_value>
@@ -30,6 +30,7 @@
         <values>
           <value name="usracct.type">login</value>
           <value name="usracct.application">$PROGRAM</value>
+          <value name="usracct.service">http</value>
           <value name="secevt.verdict">REJECT</value>
         </values>
         <tags>
