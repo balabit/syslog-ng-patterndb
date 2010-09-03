@@ -88,7 +88,7 @@
         </tags>
       </rule>
 
-      <rule provider="patterndb" id="35336794-0ad8-4255-b482-b35aa66712a8" class="system">
+      <rule provider="patterndb" id="db87a9eb-4629-4f2b-891c-cb91f7ddfb26" class="system">
         <!-- login failure, bad username password -->
         <patterns>
           <pattern>FAILED LOGIN @NUMBER::@ FROM @ESTRING:usracct.device: @FOR @ESTRING:usracct.username:,@ User not known to the underlying authentication module</pattern>
