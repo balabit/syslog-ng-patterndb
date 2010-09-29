@@ -79,6 +79,31 @@
           <tag>secevt</tag>
         </tags>
       </rule>
+
+
+      <rule provider="patterndb" id="ac8c7834-c7d5-11df-bb3c-000c298c9ba2" class="system">
+        <patterns>
+          <pattern>gkr-pam: error looking up user information for: @ANYSTRING:usracct.username@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="vsftpd">gkr-pam: error looking up user information for: asdf</test_message>
+            <test_values>
+              <test_value name="usracct.username">asdf</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
     </rules>
   </ruleset>
 </patterndb>
