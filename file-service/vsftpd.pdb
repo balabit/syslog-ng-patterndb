@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<patterndb version='3' pub_date='2010-09-23'>
+  <ruleset name='vsftpd' id='704553b0-c716-11df-8201-000c298c9ba2'>
+    <description>
+      This ruleset covers the vsftpd server.
+    </description>
+    <url>http://vsftpd.beasts.org/</url>
+    <pattern>vsftpd</pattern>
+    <rules>
+      <rule provider="patterndb" id="f302a36a-c71c-11df-a3fc-000c298c9ba2" class="system">
+        <patterns>
+          <pattern>@QSTRING:usracct.username:[]@ OK LOGIN: Client @QSTRING:usracct.device:"@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="vsftpd">[czanik] OK LOGIN: Client "::ffff:192.168.2.163"</test_message>
+            <test_values>
+              <test_value name="usracct.username">czanik</test_value>
+              <test_value name="usracct.device">::ffff:192.168.2.163</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">ACCEPT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+      <rule provider="patterndb" id="d67a44de-c71f-11df-a37a-000c298c9ba2" class="system">
+        <patterns>
+          <pattern>@QSTRING:usracct.username:[]@ FAIL LOGIN: Client @QSTRING:usracct.device:"@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="vsftpd">[czanik] FAIL LOGIN: Client "::ffff:192.168.2.163"</test_message>
+            <test_values>
+              <test_value name="usracct.username">czanik</test_value>
+              <test_value name="usracct.device">::ffff:192.168.2.163</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+      <rule provider="patterndb" id="7256a6d6-c720-11df-8a1d-000c298c9ba2" class="system">
+        <patterns>
+          <pattern>pam_listfile(@STRING:usracct.service@:auth): Refused user @ESTRING:usracct.username: @for service @ANYSTRING:usracct.service@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="vsftpd">pam_listfile(vsftpd:auth): Refused user root for service vsftpd</test_message>
+            <test_values>
+              <test_value name="usracct.username">root</test_value>
+              <test_value name="usracct.service">vsftpd</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+    </rules>
+  </ruleset>
+</patterndb>
