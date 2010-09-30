@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<patterndb version='3' pub_date='2010-09-30'>
+  <ruleset name='pure-ftpd' id='6ab01d3b-462e-4bee-a4f2-dc743dc82f4c'>
+    <description>
+      This ruleset covers the pure-ftpd server.
+    </description>
+    <url>http://www.pureftpd.org/project/pure-ftpd</url>
+    <pattern>pure-ftpd</pattern>
+    <rules>
+      <rule provider="patterndb" id="435e622e-0034-4b0b-9b25-e148da901d6a" class="system">
+        <patterns>
+          <pattern>(?@@@ESTRING::)@ [INFO] New connection from @ANYSTRING@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="pure-ftpd">(?@192.168.2.52) [INFO] New connection from 192.168.2.52</test_message>
+          </example>
+        </examples>
+      </rule>
+      <rule provider="patterndb" id="ef75e712-5e9e-4ca0-a614-5e1bf512286b" class="system">
+        <patterns>
+          <pattern>(?@@@ESTRING:usracct.device:)@ [INFO] Anonymous user logged in</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="pure-ftpd">(?@192.168.2.52) [INFO] Anonymous user logged in</test_message>
+            <test_values>
+              <test_value name="usracct.device">192.168.2.52</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.username">anonymous</value>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">ACCEPT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+      <rule provider="patterndb" id="f48f4b20-b726-44d1-a1b3-5e79a0c58735" class="system">
+        <patterns>
+          <pattern>(ftp@@@ESTRING:usracct.device:)@ [INFO] Logout.</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="pure-ftpd">(ftp@192.168.2.52) [INFO] Logout.</test_message>
+            <test_values>
+              <test_value name="usracct.device">192.168.2.52</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.username">anonymous</value>
+          <value name="usracct.type">logout</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+        </tags>
+      </rule>
+      <rule provider="patterndb" id="8bfb06a5-65bb-4d96-a2f0-491930b8e8a3" class="system">
+        <patterns>
+          <pattern>(?@@@ESTRING::)@ [INFO] PAM_RHOST enabled. Getting the peer address</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="pure-ftpd">(?@192.168.2.52) [INFO] PAM_RHOST enabled. Getting the peer address</test_message>
+          </example>
+        </examples>
+      </rule>
+      <rule provider="patterndb" id="0fbf31bb-2249-4ca1-861b-5fecc0ddc636" class="system">
+        <patterns>
+          <pattern>pam_listfile(pure-ftpd:auth): Refused user@QSTRING:: @for service pure-ftpd</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="pure-ftpd">pam_listfile(pure-ftpd:auth): Refused user root for service pure-ftpd</test_message>
+          </example>
+        </examples>
+      </rule>
+      <rule provider="patterndb" id="35c87221-5e36-4b04-b561-9d7a28b65f38" class="system">
+        <patterns>
+          <pattern>(?@@@ESTRING:usracct.device:)@ [WARNING] Authentication failed for user @QSTRING:usracct.username:[]@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="pure-ftpd">(?@192.168.2.52) [WARNING] Authentication failed for user [root]</test_message>
+            <test_values>
+              <test_value name="usracct.device">192.168.2.52</test_value>
+              <test_value name="usracct.username">root</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+      <rule provider="patterndb" id="6668943c-6fc3-4dd1-bc75-3c19ea110f99" class="system">
+        <patterns>
+          <pattern>pam_unix(pure-ftpd:auth): check pass; user unknown</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="pure-ftpd">pam_unix(pure-ftpd:auth): check pass; user unknown</test_message>
+          </example>
+        </examples>
+      </rule>
+      <rule provider="patterndb" id="adcec9b6-7d4b-4548-9145-86586d740cae" class="system">
+        <patterns>
+          <pattern>pam_unix(pure-ftpd:auth): authentication failure; @ANYSTRING@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="pure-ftpd">pam_unix(pure-ftpd:auth): authentication failure; logname= uid=0 euid=0 tty=pure-ftpd ruser=asdf rhost=</test_message>
+          </example>
+        </examples>
+      </rule>
+      <rule provider="patterndb" id="d206f4d4-fc1b-4f5c-977d-6d378116d145" class="system">
+        <patterns>
+          <pattern>pam_unix(pure-ftpd:session): session @ANYSTRING@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="pure-ftpd">pam_unix(pure-ftpd:session): session opened for user czanik by (uid=0)</test_message>
+          </example>
+        </examples>
+      </rule>
+      <rule provider="patterndb" id="aec09b48-5fcb-4d03-8d75-92ef19c3cee6" class="system">
+        <patterns>
+          <pattern>(?@@@ESTRING:usracct.device:)@ [INFO]@QSTRING:usracct.username: @is now logged in</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="pure-ftpd">(?@192.168.2.52) [INFO] czanik is now logged in</test_message>
+            <test_values>
+              <test_value name="usracct.device">192.168.2.52</test_value>
+              <test_value name="usracct.username">czanik</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">ACCEPT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+      <rule provider="patterndb" id="efe751db-5ce9-425f-9d65-5d7e2aeb2045" class="system">
+        <patterns>
+          <pattern>(@STRING:usracct.username:_-.$?@@@@ESTRING:usracct.device:)@ [INFO] Logout.</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="pure-ftpd">(czanik@192.168.2.52) [INFO] Logout.</test_message>
+            <test_values>
+              <test_value name="usracct.device">192.168.2.52</test_value>
+              <test_value name="usracct.username">czanik</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">logout</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+        </tags>
+      </rule>
+      <rule provider="patterndb" id="f8e076a3-413a-46f5-bf52-1398cca4fbbf" class="system">
+        <patterns>
+          <pattern>(?@@@ESTRING::)@ [INFO] Logout.</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="pure-ftpd">(?@192.168.2.52) [INFO] Logout.</test_message>
+          </example>
+        </examples>
+      </rule>
+    </rules>
+  </ruleset>
+</patterndb>
