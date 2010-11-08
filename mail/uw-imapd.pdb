@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<patterndb version='3' pub_date='2010-10-03'>
+  <ruleset name='imapd' id='de06a259-90c2-49b6-b6c0-8867a04700bb'>
+    <description>
+      This ruleset covers uw-imapd .
+    </description>
+    <url>http://www.washington.edu/imap/</url>
+    <pattern>imapd</pattern>
+    <rules>
+      <rule provider="patterndb" id="fa06330e-9157-43b3-98f7-649b0f3de812" class="system">
+        <patterns>
+          <pattern>connect from @ESTRING:: @(@ESTRING::)@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="imapd">connect from 192.168.2.179 (192.168.2.179)</test_message>
+          </example>
+        </examples>
+      </rule>
+      <rule provider="patterndb" id="877a3abc-ec7e-48ba-a72d-c899d3f1ae26" class="system">
+        <patterns>
+          <pattern>imap service init from </pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="imapd">imap service init from 192.168.2.179</test_message>
+          </example>
+        </examples>
+      </rule>
+      <rule provider="patterndb" id="bc82d973-810e-4a99-92b5-f253272b0341" class="system">
+        <patterns>
+          <pattern>Authenticated user=@ESTRING:usracct.username: @host=@ESTRING:: @[@ESTRING:usracct.device:]@ mech=@ANYSTRING:usracct.authmethod@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="imapd">Authenticated user=czanik host=czp.localnet [192.168.2.179] mech=PLAIN</test_message>
+            <test_values>
+              <test_value name="usracct.username">czanik</test_value>
+              <test_value name="usracct.device">192.168.2.179</test_value>
+              <test_value name="usracct.authmethod">PLAIN</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">ACCEPT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+      <rule provider="patterndb" id="259f2880-dcb3-4f76-8cd6-9c6b01217919" class="system">
+        <patterns>
+          <pattern>Logout user=@ESTRING:usracct.username: @host=@ESTRING:: @[@ESTRING:usracct.device:]@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="imapd">Logout user=czanik host=czp.localnet [192.168.2.179]</test_message>
+            <test_values>
+              <test_value name="usracct.username">czanik</test_value>
+              <test_value name="usracct.device">192.168.2.179</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">logout</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+        </tags>
+      </rule>
+      <rule provider="patterndb" id="934b3ae2-4a9a-4f4c-b13f-cffd4f4f4b45" class="system">
+        <patterns>
+          <pattern>Login failed user=@ESTRING:usracct.username: @auth=@ESTRING:: @host=@ESTRING:: @[@ESTRING:usracct.device:]@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="imapd">Login failed user=asdf auth=asdf host=czp.localnet [192.168.2.179]</test_message>
+            <test_values>
+              <test_value name="usracct.username">asdf</test_value>
+              <test_value name="usracct.device">192.168.2.179</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+	  <tag>usracct</tag>
+	  <tag>secevt</tag>
+        </tags>
+      </rule>
+      <rule provider="patterndb" id="3b8a55a7-2d9e-489c-96d9-682e8c16cfbc" class="system">
+        <patterns>
+          <pattern>AUTHENTICATE @ESTRING:: @failure host=@ESTRING:: @[@ESTRING::]@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="imapd">AUTHENTICATE PLAIN failure host=czp.localnet [192.168.2.179]</test_message>
+          </example>
+        </examples>
+      </rule>
+      <rule provider="patterndb" id="7bb914de-2dce-47be-a06e-2ff6a0c0f647" class="system">
+        <patterns>
+          <pattern>Unexpected client disconnect, while reading line user=@ESTRING:: @host=@ESTRING:: @[@ESTRING::]@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="imapd">Unexpected client disconnect, while reading line user=asdf host=czp.localnet [192.168.2.179]</test_message>
+          </example>
+        </examples>
+      </rule>
+      <rule provider="patterndb" id="f5217c70-64e3-41e5-975e-165b7ac7c310" class="system">
+        <patterns>
+          <pattern>pam_unix(imap:auth): authentication failure; logname=@ESTRING:: @uid=@ESTRING:: @euid=@ESTRING:: @tty=@ESTRING:: @ruser=@ESTRING:: @rhost=@ESTRING:: @ user=</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="imapd">pam_unix(imap:auth): authentication failure; logname= uid=0 euid=0 tty= ruser= rhost=192.168.2.179  user=czanik</test_message>
+          </example>
+        </examples>
+      </rule>
+    </rules>
+  </ruleset>
+</patterndb>
