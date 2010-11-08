@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<patterndb version='3' pub_date='2010-10-05'>
+  <ruleset name='proftpd' id='3c291242-b329-42c3-8932-de6e9a62ac46'>
+    <description>
+      This ruleset covers proftpd .
+    </description>
+    <url>http://www.proftpd.org/</url>
+    <pattern>proftpd</pattern>
+    <rules>
+      <rule provider="patterndb" id="1fb5cc0d-1040-4e4c-830b-682303c3433e" class="system">
+        <patterns>
+          <pattern>@ESTRING:: @(@ESTRING::[@@ESTRING::]@) - FTP session opened.</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="proftpd">ubuntu (::ffff:192.168.2.179[::ffff:192.168.2.179]) - FTP session opened.</test_message>
+          </example>
+        </examples>
+      </rule>
+      <rule provider="patterndb" id="c3ac312b-180b-4010-8f78-a3561995d6da" class="system">
+        <patterns>
+          <pattern>@ESTRING:: @(@ESTRING::[@@ESTRING::]@) - Preparing to chroot to directory '@ESTRING::'@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="proftpd">ubuntu (::ffff:192.168.2.179[::ffff:192.168.2.179]) - Preparing to chroot to directory '/home/ftp'</test_message>
+          </example>
+        </examples>
+      </rule>
+      <rule provider="patterndb" id="9e095294-2396-4d14-b1c3-2748cb2f2a4d" class="system">
+        <patterns>
+          <pattern>@ESTRING:: @(@ESTRING:usracct.device:[@@ESTRING::]@) - FTP session closed.</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="proftpd">ubuntu (::ffff:192.168.2.179[::ffff:192.168.2.179]) - FTP session closed.</test_message>
+            <test_values>
+              <test_value name="usracct.device">::ffff:192.168.2.179</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">logout</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+        </tags>
+      </rule>
+      <rule provider="patterndb" id="7a12e71e-1386-4c67-b896-d42993cd5b35" class="system">
+        <patterns>
+          <pattern>@ESTRING:: @(@ESTRING::[@@ESTRING:usracct.device:]@) - ANON ftp: Login successful.</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="proftpd">ubuntu (::ffff:192.168.2.179[::ffff:192.168.2.179]) - ANON ftp: Login successful.</test_message>
+            <test_values>
+              <test_value name="usracct.device">::ffff:192.168.2.179</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.username">anonymous</value>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">ACCEPT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+      <rule provider="patterndb" id="db331cab-b850-423a-ab51-0cf6c1d0005d" class="system">
+        <patterns>
+          <pattern>@ESTRING:: @(@ESTRING::[@@ESTRING:usracct.device:]@) - SECURITY VIOLATION: root login attempted.</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="proftpd">ubuntu (::ffff:192.168.2.179[::ffff:192.168.2.179]) - SECURITY VIOLATION: root login attempted.</test_message>
+            <test_values>
+              <test_value name="usracct.device">::ffff:192.168.2.179</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.username">root</value>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+      <rule provider="patterndb" id="99ae1a9a-c480-41b8-abb9-fb9f535d95fb" class="system">
+        <patterns>
+          <pattern>@ESTRING:: @(@ESTRING::[@@ESTRING:usracct.device:]@) - USER @ESTRING:usracct.username::@ no such user found from @ESTRING:: @[@ESTRING::]@ to</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="proftpd">ubuntu (::ffff:192.168.2.179[::ffff:192.168.2.179]) - USER asdf: no such user found from ::ffff:192.168.2.179 [::ffff:192.168.2.179] to ::ffff:192.168.2.159:21</test_message>
+            <test_values>
+              <test_value name="usracct.device">::ffff:192.168.2.179</test_value>
+              <test_value name="usracct.username">asdf</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+      <rule provider="patterndb" id="39e469dd-498e-45e8-a6f2-3c7034af8ed3" class="system">
+        <patterns>
+          <pattern>pam_unix(proftpd:auth): authentication failure;</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="proftpd">pam_unix(proftpd:auth): authentication failure; logname= uid=0 euid=0 tty=/dev/ftpd6846 ruser=czanik rhost=::ffff:192.168.2.179  user=czanik</test_message>
+          </example>
+        </examples>
+      </rule>
+      <rule provider="patterndb" id="0ec3466d-50b6-4b4f-a885-62091bcf1c65" class="system">
+        <patterns>
+          <pattern>@ESTRING:: @(@ESTRING::[@@ESTRING:usracct.device:]@) - USER @ESTRING:usracct.username: @(Login failed): Incorrect password.</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="proftpd">ubuntu (::ffff:192.168.2.179[::ffff:192.168.2.179]) - USER czanik (Login failed): Incorrect password.</test_message>
+            <test_values>
+              <test_value name="usracct.device">::ffff:192.168.2.179</test_value>
+              <test_value name="usracct.username">czanik</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">REJECT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+      <rule provider="patterndb" id="2f05f38a-ba0f-483d-b340-d44ac2de5c1b" class="system">
+        <patterns>
+          <pattern>pam_unix(proftpd:session): session</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="proftpd">pam_unix(proftpd:session): session opened for user czanik by (uid=0)</test_message>
+          </example>
+        </examples>
+      </rule>
+      <rule provider="patterndb" id="f5bd9439-fdc7-40c7-870f-60731c77f7a2" class="system">
+        <patterns>
+          <pattern>@ESTRING:: @(@ESTRING::[@@ESTRING:usracct.device:]@) - USER @ESTRING:usracct.username::@ Login successful.</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="proftpd">ubuntu (::ffff:192.168.2.179[::ffff:192.168.2.179]) - USER czanik: Login successful.</test_message>
+            <test_values>
+              <test_value name="usracct.device">::ffff:192.168.2.179</test_value>
+              <test_value name="usracct.username">czanik</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name="usracct.type">login</value>
+          <value name="usracct.sessionid">$PID</value>
+          <value name="usracct.application">$PROGRAM</value>
+          <value name="secevt.verdict">ACCEPT</value>
+        </values>
+        <tags>
+          <tag>usracct</tag>
+          <tag>secevt</tag>
+        </tags>
+      </rule>
+    </rules>
+  </ruleset>
+</patterndb>
