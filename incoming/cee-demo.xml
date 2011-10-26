@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<patterndb version='3' pub_date='2011-10-17'>
+  <ruleset name='opensshd' id='2448293e-6d1c-412c-a418-a80025639511'>
+
+    <description>
+      This ruleset covers the OpenSSH server.
+    </description>
+
+    <url>www.openssh.com</url>
+
+    <pattern>sshd</pattern>
+
+    <rules>
+      <rule provider="patterndb" id="4dd5a329-da83-4876-a431-ddcb59c2858c" class="system">
+        <patterns>
+          <pattern>Accepted @ESTRING:.cee.auth_method: @for @ESTRING:.cee.acct_name: @from @ESTRING:.cee.src_id: @port @ESTRING:: @@ANYSTRING:.cee.app_proto@</pattern>
+        </patterns>
+        <examples>
+          <example>
+           <test_message program="sshd">Accepted password for bazsi from 127.0.0.1 port 48650 ssh2</test_message>
+           <test_values>
+            <test_value name=".cee.acct_name">bazsi</test_value>
+            <test_value name=".cee.auth_method">password</test_value>
+            <test_value name=".cee.src_id">127.0.0.1</test_value>
+            <test_value name=".cee.app_proto">ssh2</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name=".cee.action">login</value>
+          <value name=".cee.p_proc_id">$PID</value>
+          <value name=".cee.p_proc_name">$PROGRAM</value>
+          <value name=".cee.status">success</value>
+        </values>
+      </rule>
+
+      <rule provider="patterndb" id="e85fbcc0-7986-4b4f-aa50-5e4da15bea0d" class="system">
+        <patterns>
+          <pattern>Received disconnect from @ESTRING:.cee.src_id: disconnected@ by user</pattern>
+        </patterns>
+        <examples>
+          <example>
+           <test_message program="sshd">Received disconnect from ::1: 11: disconnected by user</test_message>
+           <test_values>
+            <test_value name=".cee.src_id">::1: 11:</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name=".cee.action">logout</value>
+          <value name=".cee.p_proc_id">$PID</value>
+          <value name=".cee.p_proc_name">$PROGRAM</value>
+          <value name=".cee.status">unknown</value>
+        </values>
+      </rule>
+
+      <rule provider="patterndb" id="012cbb5a-0c63-4693-a8fe-1e7f0d337cc7" class="system">
+        <patterns>
+          <pattern>error: PAM: Authentication failure for @ESTRING:.cee.acct_name: @from @ANYSTRING:.cee.src_id@</pattern>
+        </patterns>
+        <examples>
+          <example>
+           <test_message program="sshd">error: PAM: Authentication failure for czanik from localhost</test_message>
+           <test_values>
+            <test_value name=".cee.acct_name">czanik</test_value>
+            <test_value name=".cee.src_id">localhost</test_value>
+           </test_values>
+          </example>
+        </examples>
+        <values>
+          <value name=".cee.action">login</value>
+          <value name=".cee.p_proc_id">$PID</value>
+          <value name=".cee.p_proc_name">$PROGRAM</value>
+          <value name=".cee.status">failure</value>
+        </values>
+      </rule>
+
+    </rules>
+  </ruleset>
+</patterndb>
