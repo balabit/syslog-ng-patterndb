@@ -1,0 +1,221 @@
+<?xml version='1.0' encoding='utf-8'?>
+<patterndb version='3' pub_date='2013-03-13'>
+  <ruleset name="DNS" id="d71d86dd-1ba4-4d1c-9932-ffa01180feb7">
+    <description></description>
+    <url></url>
+    <pattern>DNS</pattern>
+    <rules>
+      <!-- 2 tags in DNS name -->
+      <rule provider="user" id="09ca76ed-2d35-4cf1-b5c9-4cebb11bafc2" class="system">
+        <patterns>
+          <!-- 2 spaces after IP -->
+          <pattern>@ESTRING:dns.filename:.log@: @ESTRING:dns.date: @@ESTRING:dns.time: @@ESTRING:dns.time.ampm: @@ESTRING:dns.threadid: @PACKET  @ESTRING:dns.packetid: @@ESTRING:dns.proto: @@ESTRING:dns.direction: @@IPvANY:dns.ip@  @ESTRING:dns.xid: @@ESTRING:dns.info1:[@@ESTRING:dns.info2:]@ @ESTRING:dns.question.type: @@ESTRING::(@@NUMBER:@@QSTRING:dns.name.1:)(@@NUMBER:@@QSTRING:dns.name.2:)(@0)</pattern>
+          <!-- 3 spaces after IP -->
+          <pattern>@ESTRING:dns.filename:.log@: @ESTRING:dns.date: @@ESTRING:dns.time: @@ESTRING:dns.time.ampm: @@ESTRING:dns.threadid: @PACKET  @ESTRING:dns.packetid: @@ESTRING:dns.proto: @@ESTRING:dns.direction: @@IPvANY:dns.ip@   @ESTRING:dns.xid: @@ESTRING:dns.info1:[@@ESTRING:dns.info2:]@ @ESTRING:dns.question.type: @@ESTRING::(@@NUMBER:@@QSTRING:dns.name.1:)(@@NUMBER:@@QSTRING:dns.name.2:)(@0)</pattern>
+          <!-- 4 spaces after IP -->
+          <pattern>@ESTRING:dns.filename:.log@: @ESTRING:dns.date: @@ESTRING:dns.time: @@ESTRING:dns.time.ampm: @@ESTRING:dns.threadid: @PACKET  @ESTRING:dns.packetid: @@ESTRING:dns.proto: @@ESTRING:dns.direction: @@IPvANY:dns.ip@    @ESTRING:dns.xid: @@ESTRING:dns.info1:[@@ESTRING:dns.info2:]@ @ESTRING:dns.question.type: @@ESTRING::(@@NUMBER:@@QSTRING:dns.name.1:)(@@NUMBER:@@QSTRING:dns.name.2:)(@0)</pattern>
+        </patterns>
+        <values>
+          <value name="dns.name">${dns.name.1}.${dns.name.2}</value>
+        </values>
+        <tags>
+          <tag>dns</tag>
+        </tags>
+        <examples>
+          <example>
+            <test_message program="DNS">C:\Windows\system32\dns\dns.log: 3/13/2013 4:53:40 AM 0970 PACKET  00000000046E57F0 UDP Rcv 172.16.198.174  5c5a   Q [0001   D   NOERROR] AAAA   (8)linkedin(3)biz(0)</test_message>
+            <test_values>
+              <test_value name="dns.filename">C:\Windows\system32\dns\dns</test_value>
+              <test_value name="dns.date">3/13/2013</test_value>
+              <test_value name="dns.time">4:53:40</test_value>
+              <test_value name="dns.time.ampm">AM</test_value>
+              <test_value name="dns.threadid">0970</test_value>
+              <test_value name="dns.packetid">00000000046E57F0</test_value>
+              <test_value name="dns.proto">UDP</test_value>
+              <test_value name="dns.direction">Rcv</test_value>
+              <test_value name="dns.ip">172.16.198.174</test_value>
+              <test_value name="dns.xid">5c5a</test_value>
+              <test_value name="dns.info1">  Q </test_value>
+              <test_value name="dns.info2">0001   D   NOERROR</test_value>
+              <test_value name="dns.question.type">AAAA</test_value>
+              <test_value name="dns.name.1">linkedin</test_value>
+              <test_value name="dns.name.2">biz</test_value>
+              <test_value name="dns.name">linkedin.biz</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+      <!-- 3 tags in DNS name -->
+      <rule provider="user" id="ce60f597-7c25-4bc4-8250-401a081ae8a7" class="system">
+        <patterns>
+          <!-- 2 spaces after IP -->
+          <pattern>@ESTRING:dns.filename:.log@: @ESTRING:dns.date: @@ESTRING:dns.time: @@ESTRING:dns.time.ampm: @@ESTRING:dns.threadid: @PACKET  @ESTRING:dns.packetid: @@ESTRING:dns.proto: @@ESTRING:dns.direction: @@IPvANY:dns.ip@  @ESTRING:dns.xid: @@ESTRING:dns.info1:[@@ESTRING:dns.info2:]@ @ESTRING:dns.question.type: @@ESTRING::(@@NUMBER:@@QSTRING:dns.name.1:)(@@NUMBER:@@QSTRING:dns.name.2:)(@@NUMBER:@@QSTRING:dns.name.3:)(@0)</pattern>
+          <!-- 3 spaces after IP -->
+          <pattern>@ESTRING:dns.filename:.log@: @ESTRING:dns.date: @@ESTRING:dns.time: @@ESTRING:dns.time.ampm: @@ESTRING:dns.threadid: @PACKET  @ESTRING:dns.packetid: @@ESTRING:dns.proto: @@ESTRING:dns.direction: @@IPvANY:dns.ip@   @ESTRING:dns.xid: @@ESTRING:dns.info1:[@@ESTRING:dns.info2:]@ @ESTRING:dns.question.type: @@ESTRING::(@@NUMBER:@@QSTRING:dns.name.1:)(@@NUMBER:@@QSTRING:dns.name.2:)(@@NUMBER:@@QSTRING:dns.name.3:)(@0)</pattern>
+          <!-- 4 spaces after IP -->
+          <pattern>@ESTRING:dns.filename:.log@: @ESTRING:dns.date: @@ESTRING:dns.time: @@ESTRING:dns.time.ampm: @@ESTRING:dns.threadid: @PACKET  @ESTRING:dns.packetid: @@ESTRING:dns.proto: @@ESTRING:dns.direction: @@IPvANY:dns.ip@    @ESTRING:dns.xid: @@ESTRING:dns.info1:[@@ESTRING:dns.info2:]@ @ESTRING:dns.question.type: @@ESTRING::(@@NUMBER:@@QSTRING:dns.name.1:)(@@NUMBER:@@QSTRING:dns.name.2:)(@@NUMBER:@@QSTRING:dns.name.3:)(@0)</pattern>
+        </patterns>
+        <values>
+          <value name="dns.name">${dns.name.1}.${dns.name.2}.${dns.name.3}</value>
+        </values>
+        <tags>
+          <tag>dns</tag>
+        </tags>
+        <examples>
+          <example>
+            <test_message program="DNS">C:\Windows\system32\dns\dns.log: 3/13/2013 4:53:40 AM 0970 PACKET  00000000046E57F0 UDP Rcv 172.16.198.174  5c5a   Q [0001   D   NOERROR] AAAA   (3)stg(8)linkedin(3)biz(0)</test_message>
+            <test_values>
+              <test_value name="dns.filename">C:\Windows\system32\dns\dns</test_value>
+              <test_value name="dns.date">3/13/2013</test_value>
+              <test_value name="dns.time">4:53:40</test_value>
+              <test_value name="dns.time.ampm">AM</test_value>
+              <test_value name="dns.threadid">0970</test_value>
+              <test_value name="dns.packetid">00000000046E57F0</test_value>
+              <test_value name="dns.proto">UDP</test_value>
+              <test_value name="dns.direction">Rcv</test_value>
+              <test_value name="dns.ip">172.16.198.174</test_value>
+              <test_value name="dns.xid">5c5a</test_value>
+              <test_value name="dns.info1">  Q </test_value>
+              <test_value name="dns.info2">0001   D   NOERROR</test_value>
+              <test_value name="dns.question.type">AAAA</test_value>
+              <test_value name="dns.name.1">stg</test_value>
+              <test_value name="dns.name.2">linkedin</test_value>
+              <test_value name="dns.name.3">biz</test_value>
+              <test_value name="dns.name">stg.linkedin.biz</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+      <!-- 4 tags in DNS name -->
+      <rule provider="user" id="ecfe9525-b0a2-4498-853d-6e3d676baaea" class="system">
+        <patterns>
+          <!-- 2 spaces after IP -->
+          <pattern>@ESTRING:dns.filename:.log@: @ESTRING:dns.date: @@ESTRING:dns.time: @@ESTRING:dns.time.ampm: @@ESTRING:dns.threadid: @PACKET  @ESTRING:dns.packetid: @@ESTRING:dns.proto: @@ESTRING:dns.direction: @@IPvANY:dns.ip@  @ESTRING:dns.xid: @@ESTRING:dns.info1:[@@ESTRING:dns.info2:]@ @ESTRING:dns.question.type: @@ESTRING::(@@NUMBER:@@QSTRING:dns.name.1:)(@@NUMBER:@@QSTRING:dns.name.2:)(@@NUMBER:@@QSTRING:dns.name.3:)(@@NUMBER:@@QSTRING:dns.name.4:)(@0)</pattern>
+          <!-- 3 spaces after IP -->
+          <pattern>@ESTRING:dns.filename:.log@: @ESTRING:dns.date: @@ESTRING:dns.time: @@ESTRING:dns.time.ampm: @@ESTRING:dns.threadid: @PACKET  @ESTRING:dns.packetid: @@ESTRING:dns.proto: @@ESTRING:dns.direction: @@IPvANY:dns.ip@   @ESTRING:dns.xid: @@ESTRING:dns.info1:[@@ESTRING:dns.info2:]@ @ESTRING:dns.question.type: @@ESTRING::(@@NUMBER:@@QSTRING:dns.name.1:)(@@NUMBER:@@QSTRING:dns.name.2:)(@@NUMBER:@@QSTRING:dns.name.3:)(@@NUMBER:@@QSTRING:dns.name.4:)(@0)</pattern>
+          <!-- 4 spaces after IP -->
+          <pattern>@ESTRING:dns.filename:.log@: @ESTRING:dns.date: @@ESTRING:dns.time: @@ESTRING:dns.time.ampm: @@ESTRING:dns.threadid: @PACKET  @ESTRING:dns.packetid: @@ESTRING:dns.proto: @@ESTRING:dns.direction: @@IPvANY:dns.ip@    @ESTRING:dns.xid: @@ESTRING:dns.info1:[@@ESTRING:dns.info2:]@ @ESTRING:dns.question.type: @@ESTRING::(@@NUMBER:@@QSTRING:dns.name.1:)(@@NUMBER:@@QSTRING:dns.name.2:)(@@NUMBER:@@QSTRING:dns.name.3:)(@@NUMBER:@@QSTRING:dns.name.4:)(@0)</pattern>
+        </patterns>
+        <values>
+          <value name="dns.name">${dns.name.1}.${dns.name.2}.${dns.name.3}.${dns.name.4}</value>
+        </values>
+        <tags>
+          <tag>dns</tag>
+        </tags>
+        <examples>
+          <example>
+            <test_message program="DNS">C:\Windows\system32\dns\dns.log: 3/13/2013 4:53:40 AM 0970 PACKET  00000000046E57F0 UDP Rcv 172.16.198.174  5c5a   Q [0001   D   NOERROR] AAAA   (11)eat1-app423(3)stg(8)linkedin(3)com(0)</test_message>
+            <test_values>
+              <test_value name="dns.filename">C:\Windows\system32\dns\dns</test_value>
+              <test_value name="dns.date">3/13/2013</test_value>
+              <test_value name="dns.time">4:53:40</test_value>
+              <test_value name="dns.time.ampm">AM</test_value>
+              <test_value name="dns.threadid">0970</test_value>
+              <test_value name="dns.packetid">00000000046E57F0</test_value>
+              <test_value name="dns.proto">UDP</test_value>
+              <test_value name="dns.direction">Rcv</test_value>
+              <test_value name="dns.ip">172.16.198.174</test_value>
+              <test_value name="dns.xid">5c5a</test_value>
+              <test_value name="dns.info1">  Q </test_value>
+              <test_value name="dns.info2">0001   D   NOERROR</test_value>
+              <test_value name="dns.question.type">AAAA</test_value>
+              <test_value name="dns.name.1">eat1-app423</test_value>
+              <test_value name="dns.name.2">stg</test_value>
+              <test_value name="dns.name.3">linkedin</test_value>
+              <test_value name="dns.name.4">com</test_value>
+              <test_value name="dns.name">eat1-app423.stg.linkedin.com</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+      <!-- 5 tags in DNS name -->
+      <rule provider="user" id="1774b71d-eb54-4b5d-8e66-89f23005d7a3" class="system">
+        <patterns>
+          <!-- 2 spaces after IP -->
+          <pattern>@ESTRING:dns.filename:.log@: @ESTRING:dns.date: @@ESTRING:dns.time: @@ESTRING:dns.time.ampm: @@ESTRING:dns.threadid: @PACKET  @ESTRING:dns.packetid: @@ESTRING:dns.proto: @@ESTRING:dns.direction: @@IPvANY:dns.ip@  @ESTRING:dns.xid: @@ESTRING:dns.info1:[@@ESTRING:dns.info2:]@ @ESTRING:dns.question.type: @@ESTRING::(@@NUMBER:@@QSTRING:dns.name.1:)(@@NUMBER:@@QSTRING:dns.name.2:)(@@NUMBER:@@QSTRING:dns.name.3:)(@@NUMBER:@@QSTRING:dns.name.4:)(@@NUMBER:@@QSTRING:dns.name.5:)(@0)</pattern>
+          <!-- 3 spaces after IP -->
+          <pattern>@ESTRING:dns.filename:.log@: @ESTRING:dns.date: @@ESTRING:dns.time: @@ESTRING:dns.time.ampm: @@ESTRING:dns.threadid: @PACKET  @ESTRING:dns.packetid: @@ESTRING:dns.proto: @@ESTRING:dns.direction: @@IPvANY:dns.ip@   @ESTRING:dns.xid: @@ESTRING:dns.info1:[@@ESTRING:dns.info2:]@ @ESTRING:dns.question.type: @@ESTRING::(@@NUMBER:@@QSTRING:dns.name.1:)(@@NUMBER:@@QSTRING:dns.name.2:)(@@NUMBER:@@QSTRING:dns.name.3:)(@@NUMBER:@@QSTRING:dns.name.4:)(@@NUMBER:@@QSTRING:dns.name.5:)(@0)</pattern>
+          <!-- 4 spaces after IP -->
+          <pattern>@ESTRING:dns.filename:.log@: @ESTRING:dns.date: @@ESTRING:dns.time: @@ESTRING:dns.time.ampm: @@ESTRING:dns.threadid: @PACKET  @ESTRING:dns.packetid: @@ESTRING:dns.proto: @@ESTRING:dns.direction: @@IPvANY:dns.ip@    @ESTRING:dns.xid: @@ESTRING:dns.info1:[@@ESTRING:dns.info2:]@ @ESTRING:dns.question.type: @@ESTRING::(@@NUMBER:@@QSTRING:dns.name.1:)(@@NUMBER:@@QSTRING:dns.name.2:)(@@NUMBER:@@QSTRING:dns.name.3:)(@@NUMBER:@@QSTRING:dns.name.4:)(@@NUMBER:@@QSTRING:dns.name.5:)(@0)</pattern>
+        </patterns>
+        <values>
+          <value name="dns.name">${dns.name.1}.${dns.name.2}.${dns.name.3}.${dns.name.4}.${dns.name.5}</value>
+        </values>
+        <tags>
+          <tag>dns</tag>
+        </tags>
+        <examples>
+          <example>
+            <test_message program="DNS">C:\Windows\system32\dns\dns.log: 3/13/2013 4:53:40 AM 0970 PACKET  00000000046E57F0 UDP Rcv 172.16.198.174  5c5a   Q [0001   D   NOERROR] AAAA   (21)oxbalancer-1906209509(9)us-east-1(3)elb(9)amazonaws(3)com(0)</test_message>
+            <test_values>
+              <test_value name="dns.filename">C:\Windows\system32\dns\dns</test_value>
+              <test_value name="dns.date">3/13/2013</test_value>
+              <test_value name="dns.time">4:53:40</test_value>
+              <test_value name="dns.time.ampm">AM</test_value>
+              <test_value name="dns.threadid">0970</test_value>
+              <test_value name="dns.packetid">00000000046E57F0</test_value>
+              <test_value name="dns.proto">UDP</test_value>
+              <test_value name="dns.direction">Rcv</test_value>
+              <test_value name="dns.ip">172.16.198.174</test_value>
+              <test_value name="dns.xid">5c5a</test_value>
+              <test_value name="dns.info1">  Q </test_value>
+              <test_value name="dns.info2">0001   D   NOERROR</test_value>
+              <test_value name="dns.question.type">AAAA</test_value>
+              <test_value name="dns.name.1">oxbalancer-1906209509</test_value>
+              <test_value name="dns.name.2">us-east-1</test_value>
+              <test_value name="dns.name.3">elb</test_value>
+              <test_value name="dns.name.4">amazonaws</test_value>
+              <test_value name="dns.name.5">com</test_value>
+              <test_value name="dns.name">oxbalancer-1906209509.us-east-1.elb.amazonaws.com</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+      <!-- 6 tags in DNS name -->
+      <rule provider="user" id="a3599dc7-a132-4d07-ae1c-91d15a87537f" class="system">
+        <patterns>
+          <!-- 2 spaces after IP -->
+          <pattern>@ESTRING:dns.filename:.log@: @ESTRING:dns.date: @@ESTRING:dns.time: @@ESTRING:dns.time.ampm: @@ESTRING:dns.threadid: @PACKET  @ESTRING:dns.packetid: @@ESTRING:dns.proto: @@ESTRING:dns.direction: @@IPvANY:dns.ip@  @ESTRING:dns.xid: @@ESTRING:dns.info1:[@@ESTRING:dns.info2:]@ @ESTRING:dns.question.type: @@ESTRING::(@@NUMBER:@@QSTRING:dns.name.1:)(@@NUMBER:@@QSTRING:dns.name.2:)(@@NUMBER:@@QSTRING:dns.name.3:)(@@NUMBER:@@QSTRING:dns.name.4:)(@@NUMBER:@@QSTRING:dns.name.5:)(@@NUMBER:@@QSTRING:dns.name.6:)(@0)</pattern>
+          <!-- 3 spaces after IP -->
+          <pattern>@ESTRING:dns.filename:.log@: @ESTRING:dns.date: @@ESTRING:dns.time: @@ESTRING:dns.time.ampm: @@ESTRING:dns.threadid: @PACKET  @ESTRING:dns.packetid: @@ESTRING:dns.proto: @@ESTRING:dns.direction: @@IPvANY:dns.ip@   @ESTRING:dns.xid: @@ESTRING:dns.info1:[@@ESTRING:dns.info2:]@ @ESTRING:dns.question.type: @@ESTRING::(@@NUMBER:@@QSTRING:dns.name.1:)(@@NUMBER:@@QSTRING:dns.name.2:)(@@NUMBER:@@QSTRING:dns.name.3:)(@@NUMBER:@@QSTRING:dns.name.4:)(@@NUMBER:@@QSTRING:dns.name.5:)(@@NUMBER:@@QSTRING:dns.name.6:)(@0)</pattern>
+          <!-- 4 spaces after IP -->
+          <pattern>@ESTRING:dns.filename:.log@: @ESTRING:dns.date: @@ESTRING:dns.time: @@ESTRING:dns.time.ampm: @@ESTRING:dns.threadid: @PACKET  @ESTRING:dns.packetid: @@ESTRING:dns.proto: @@ESTRING:dns.direction: @@IPvANY:dns.ip@    @ESTRING:dns.xid: @@ESTRING:dns.info1:[@@ESTRING:dns.info2:]@ @ESTRING:dns.question.type: @@ESTRING::(@@NUMBER:@@QSTRING:dns.name.1:)(@@NUMBER:@@QSTRING:dns.name.2:)(@@NUMBER:@@QSTRING:dns.name.3:)(@@NUMBER:@@QSTRING:dns.name.4:)(@@NUMBER:@@QSTRING:dns.name.5:)(@@NUMBER:@@QSTRING:dns.name.6:)(@0)</pattern>
+        </patterns>
+        <values>
+          <value name="dns.name">${dns.name.1}.${dns.name.2}.${dns.name.3}.${dns.name.4}.${dns.name.5}.${dns.name.6}</value>
+        </values>
+        <tags>
+          <tag>dns</tag>
+        </tags>
+        <examples>
+          <example>
+            <test_message program="DNS">C:\Windows\system32\dns\dns.log: 3/13/2013 4:53:40 AM 0970 PACKET  00000000046E57F0 UDP Rcv 172.16.198.174  5c5a   Q [0001   D   NOERROR] AAAA   (4)abcd(21)oxbalancer-1906209509(9)us-east-1(3)elb(9)amazonaws(3)com(0)</test_message>
+            <test_values>
+              <test_value name="dns.filename">C:\Windows\system32\dns\dns</test_value>
+              <test_value name="dns.date">3/13/2013</test_value>
+              <test_value name="dns.time">4:53:40</test_value>
+              <test_value name="dns.time.ampm">AM</test_value>
+              <test_value name="dns.threadid">0970</test_value>
+              <test_value name="dns.packetid">00000000046E57F0</test_value>
+              <test_value name="dns.proto">UDP</test_value>
+              <test_value name="dns.direction">Rcv</test_value>
+              <test_value name="dns.ip">172.16.198.174</test_value>
+              <test_value name="dns.xid">5c5a</test_value>
+              <test_value name="dns.info1">  Q </test_value>
+              <test_value name="dns.info2">0001   D   NOERROR</test_value>
+              <test_value name="dns.question.type">AAAA</test_value>
+              <test_value name="dns.name.1">abcd</test_value>
+              <test_value name="dns.name.2">oxbalancer-1906209509</test_value>
+              <test_value name="dns.name.3">us-east-1</test_value>
+              <test_value name="dns.name.4">elb</test_value>
+              <test_value name="dns.name.5">amazonaws</test_value>
+              <test_value name="dns.name.6">com</test_value>
+              <test_value name="dns.name">abcd.oxbalancer-1906209509.us-east-1.elb.amazonaws.com</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+    </rules>
+  </ruleset>
+</patterndb>
+
