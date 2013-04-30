@@ -1,0 +1,485 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<patterndb version="3" pub_date="2010-04-15">
+  <ruleset id='97c1454e-9a1f-4b2b-b272-49b170884863' name='sshd'>
+    <pattern>sshd</pattern>
+    <rules>
+      <rule class='system' id='f31f321f-94ce-4293-afab-dab886e34f40' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>Received disconnect from @IPvANY:ssh.ip:@: @ESTRING:ssh.reason.id::@ @ANYSTRING:ssh.reason.msg@</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">Received disconnect from 200.200.200.200: 2000: Timeout, server not responding.</test_message>
+          <test_values>
+           <test_value name="ssh.ip">200.200.200.200</test_value>
+           <test_value name="ssh.reason.id">2000</test_value>
+           <test_value name="ssh.reason.msg">Timeout, server not responding.</test_value>
+          </test_values>
+         </example>
+         <example>
+          <test_message program="sshd">Received disconnect from 192.168.25.111: 11: disconnected by user</test_message>
+          <test_values>
+           <test_value name="ssh.ip">192.168.25.111</test_value>
+           <test_value name="ssh.reason.id">11</test_value>
+           <test_value name="ssh.reason.msg">disconnected by user</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='accepted-1' provider='balage'>
+      <description></description>
+        <patterns>
+          <pattern>Accepted @ESTRING:ssh.auth.method: @for @ESTRING:ssh.auth.user: @from @IPvANY:ssh.src.ip@ port @NUMBER:ssh.src.port@ @ANYSTRING:ssh.proto@</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">Accepted dsa for user from 200.200.200.200 port 49803 ssh2</test_message>
+          <test_values>
+           <test_value name="ssh.auth.method">dsa</test_value>
+           <test_value name="ssh.auth.user">user</test_value>
+           <test_value name="ssh.src.ip">200.200.200.200</test_value>
+           <test_value name="ssh.src.port">49803</test_value>
+           <test_value name="ssh.proto">ssh2</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='355661de-d207-40ae-b0b8-8af1286e0ab1' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>Did not receive identification string from @ANYSTRING:ssh.src.ip@</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">Did not receive identification string from 200.200.200.200</test_message>
+          <test_values>
+           <test_value name="ssh.src.ip">200.200.200.200</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='6601c0f3-1304-447c-b27d-c27ba3763841' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>Postponed keyboard-interactive for @ESTRING:ssh.auth.user: @from @IPvANY:ssh.src.ip@ port @NUMBER:ssh.src.port@</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">Postponed keyboard-interactive for user from 200.200.200.200 port 49803</test_message>
+          <test_values>
+           <test_value name="ssh.auth.user">user</test_value>
+           <test_value name="ssh.src.ip">200.200.200.200</test_value>
+           <test_value name="ssh.src.port">49803</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='084c3021-27ac-4f24-89a7-60e7df1a9d25' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>Disconnecting: Corrupted MAC on input.</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">Disconnecting: Corrupted MAC on input.</test_message>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='violation' id='failed-1' provider='balage'>
+      <description></description>
+        <patterns>
+          <pattern>Failed @ESTRING:ssh.auth.method: @for @ESTRING:ssh.auth.user: from@ @IPvANY:ssh.src.ip@ port @NUMBER:ssh.src.port@ @STRING:ssh.proto@</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">Failed keyboard-interactive/pam for illegal user user from 200.200.200.200 port 49803 ssh</test_message>
+          <test_values>
+           <test_value name="ssh.auth.method">keyboard-interactive/pam</test_value>
+           <test_value name="ssh.auth.user">illegal user user</test_value>
+           <test_value name="ssh.src.ip">200.200.200.200</test_value>
+           <test_value name="ssh.src.port">49803</test_value>
+           <test_value name="ssh.proto">ssh</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='violation' id='d2971c6d-f60e-4afd-96e8-996a4d9e4f49' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>Invalid user @ESTRING:ssh.auth.user: @from @ANYSTRING:ssh.src.ip@</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">Invalid user user from 200.200.200.200</test_message>
+          <test_values>
+           <test_value name="ssh.auth.user">user</test_value>
+           <test_value name="ssh.src.ip">200.200.200.200</test_value>
+          </test_values>
+         </example>
+         <example>
+          <test_message program="sshd">Invalid user user from UNKNOWN</test_message>
+          <test_values>
+           <test_value name="ssh.auth.user">user</test_value>
+           <test_value name="ssh.src.ip">UNKNOWN</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='aae7802b-a67c-4807-8dc2-f6d3d72e249e' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>Bad protocol version identification @QSTRING:ssh.proto:'@ from @IPvANY:ssh.src.ip@</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">Bad protocol version identification '\200b\001\003\001' from 200.200.200.200</test_message>
+          <test_values>
+           <test_value name="ssh.proto">\200b\001\003\001</test_value>
+           <test_value name="ssh.src.ip">200.200.200.200</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='ee0f8531-e7d0-49c7-ae69-103f9da935c3' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>User @ESTRING:ssh.auth.user: @from @ESTRING:ssh.src.host: @not allowed because not listed in AllowUsers</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">User user from myhost.host not allowed because not listed in AllowUsers</test_message>
+          <test_values>
+           <test_value name="ssh.auth.user">user</test_value>
+           <test_value name="ssh.src.host">myhost.host</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='ba34fcad-7eaf-402e-80eb-9edbf29fbc1c' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>Address @ESTRING:ssh.src.ip: @maps to @ESTRING:ssh.src.host:,@ but this does not map back to the address - POSSIBLE BREAKIN ATTEMPT!</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">Address 200.200.200.200 maps to myhost.host, but this does not map back to the address - POSSIBLE BREAKIN ATTEMPT!</test_message>
+          <test_values>
+           <test_value name="ssh.src.ip">200.200.200.200</test_value>
+           <test_value name="ssh.src.host">myhost.host</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='af564551-0b79-46b9-bd60-08d8e29f4eb2' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>syslogin_perform_logout: logout() returned an error</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">syslogin_perform_logout: logout() returned an error</test_message>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='afcdd9e2-0592-43f0-9618-dfcc3de57a11' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>reverse mapping checking getaddrinfo for @ESTRING:ssh.src.host: @failed - @ANYSTRING:ssh.msg@</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">reverse mapping checking getaddrinfo for 200-200-200-200.myhost.host failed - POSSIBLE BREAK-IN ATTEMPT!</test_message>
+          <test_values>
+           <test_value name="ssh.src.host">200-200-200-200.myhost.host</test_value>
+           <test_value name="ssh.msg">POSSIBLE BREAK-IN ATTEMPT!</test_value>
+          </test_values>
+         </example>
+         <example>
+          <test_message program="sshd">reverse mapping checking getaddrinfo for 200-200-200-200.myhost.host failed - POSSIBLE BREAKIN ATTEMPT!</test_message>
+          <test_values>
+           <test_value name="ssh.src.host">200-200-200-200.myhost.host</test_value>
+           <test_value name="ssh.msg">POSSIBLE BREAKIN ATTEMPT!</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='bda97a7d-5e8f-4649-8045-e44262bfed98' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>Disconnecting: Bad packet length @NUMBER:ssh.packet.length@.</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">Disconnecting: Bad packet length 100.</test_message>
+          <test_values>
+           <test_value name="ssh.packet.length">100</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='cc37a4d2-34be-4e5a-bf89-e73a8ff2f011' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>(pam_unix) auth could not identify password for @QSTRING:ssh.auth.user:[]@</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">(pam_unix) auth could not identify password for [user]</test_message>
+          <test_values>
+           <test_value name="ssh.auth.user">user</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='d476d4d1-031c-4336-825e-0d758774b9b1' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>refused connect from @ESTRING:ssh.src.ip: @@QSTRING:ssh.src.host:()@</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">refused connect from 200.200.200.200 (200.200.200.200)</test_message>
+          <test_values>
+           <test_value name="ssh.src.ip">200.200.200.200</test_value>
+           <test_value name="ssh.src.host">200.200.200.200</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='50aac456-6ebb-4826-88fc-e5839366dcf8' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>Postponed keyboard-interactive/pam for@QSTRING:.dict.user: @from @IPvANY:.dict.src@ port @NUMBER:.dict.srcPort@</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">Postponed keyboard-interactive/pam for user from 200.200.200.200 port 49803</test_message>
+          <test_values>
+           <test_value name=".dict.user">user</test_value>
+           <test_value name=".dict.src">200.200.200.200</test_value>
+           <test_value name=".dict.srcPort">49803</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='5332252b-0871-4604-a954-ea33a352158d' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>Bad protocol version identification @QSTRING:.dict.program:''@ from UNKNOWN</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">Bad protocol version identification '\200b\001\003\001' from UNKNOWN</test_message>
+          <test_values>
+           <test_value name=".dict.program">\200b\001\003\001</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='0e1e8bec-1469-41e7-9539-498d0b397d79' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>User @ESTRING:ssh.auth.user: @from @ESTRING:ssh.src.host: @not allowed because listed in DenyUsers</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">User user from myhost.host not allowed because listed in DenyUsers</test_message>
+          <test_values>
+           <test_value name="ssh.auth.user">user</test_value>
+           <test_value name="ssh.src.host">myhost.host</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='fa670c30-6b67-4f0b-b69a-1f6e7c7be75c' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>fatal: Timeout before authentication for @ANYSTRING:ssh.src.host@</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">fatal: Timeout before authentication for myhost.host</test_message>
+          <test_values>
+           <test_value name="ssh.src.host">myhost.host</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='71e3b37b-87a8-4901-824e-50bae6e789a0' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>Authorized to @ESTRING:ssh.auth.user:,@ krb5 principal @ESTRING:ssh.src.host: @(krb5_kuserok)</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">Authorized to user, krb5 principal myhost.host (krb5_kuserok)</test_message>
+          <test_values>
+           <test_value name="ssh.auth.user">user</test_value>
+           <test_value name="ssh.src.host">myhost.host</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='4781c5a5-c018-43c4-a82d-d73a947d2c9a' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>Server listening on @IPvANY:ssh.src.ip@ port @NUMBER:ssh.src.port@.</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">Server listening on 200.200.200.200 port 2000.</test_message>
+          <test_values>
+           <test_value name="ssh.src.ip">200.200.200.200</test_value>
+           <test_value name="ssh.src.port">2000</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule class='system' id='c251357b-4958-4024-9e70-e67d0d9948a6' provider='balabit'>
+      <description></description>
+        <patterns>
+          <pattern>Illegal user @ESTRING:ssh.auth.user: @from @ANYSTRING:ssh.src.ip@</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+         <example>
+          <test_message program="sshd">Illegal user user from 200.200.200.200</test_message>
+          <test_values>
+           <test_value name="ssh.auth.user">user</test_value>
+           <test_value name="ssh.src.ip">200.200.200.200</test_value>
+          </test_values>
+         </example>
+         <example>
+          <test_message program="sshd">Illegal user user from UNKNOWN</test_message>
+          <test_values>
+           <test_value name="ssh.auth.user">user</test_value>
+           <test_value name="ssh.src.ip">UNKNOWN</test_value>
+          </test_values>
+         </example>
+        </examples>
+      </rule>
+
+      <rule id="sshd-2" class="system" provider="balage">
+      <description>session (closed mainly)</description>
+        <patterns>
+          <pattern>pam_unix(sshd:session): session @STRING:ssh.session.state@ for user @STRING:ssh.auth.user@</pattern>
+          <pattern>pam_unix(sshd:session): session @STRING:ssh.session.state@ for user @STRING:ssh.auth.user@ by @QSTRING:ssh.session.uid:()@</pattern>
+          <pattern>(pam_unix) session @STRING:ssh.session.state@ for user @STRING:ssh.auth.user@ by @ESTRING:ssh.session.user:(@@ESTRING:ssh.session.uid:)@</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+          <example>
+            <test_message program="sshd">pam_unix(sshd:session): session opened for user root</test_message>
+            <test_message program="sshd">pam_unix(sshd:session): session opened for user root by (uid=0)</test_message>
+            <test_message program="sshd">(pam_unix) session opened for user root by root(uid=0)</test_message>
+            <test_values>
+              <test_value name="ssh.session.state">opened</test_value>
+              <test_value name="ssh.auth.user">root</test_value>
+              <test_value name="ssh.session.uid">uid=0</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+
+      <rule id="sshd-4" class="violation" provider="balage">
+        <description>ssh auth failure</description>
+        <patterns>
+          <pattern>(pam_unix) authentication failure; logname=@ESTRING:ssh.auth.logname: @uid=@ESTRING:ssh.auth.uid: @euid=@ESTRING:ssh.auth.euid: @tty=@ESTRING:ssh.auth.tty: @ruser=@ESTRING:ssh.auth.ruser: @rhost=@IPvANY:ssh.src.ip@</pattern>
+          <pattern>pam_unix@QSTRING:.component:()@: authentication failure; logname=@ESTRING:ssh.auth.logname: @uid=@ESTRING:ssh.auth.uid: @euid=@ESTRING:ssh.auth.euid: @tty=@ESTRING:ssh.auth.tty: @ruser=@ESTRING:ssh.auth.ruser: @rhost=@IPvANY:ssh.src.ip@</pattern>
+        </patterns>
+        <values>
+        </values>
+        <examples>
+          <example>
+            <test_message program="sshd">(pam_unix) authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=212.247.220.16</test_message>
+            <test_values>
+              <test_value name="ssh.auth.ogname"></test_value>
+              <test_value name="ssh.auth.uid">0</test_value>
+              <test_value name="ssh.auth.euid">0</test_value>
+              <test_value name="ssh.auth.tty">ssh</test_value>
+              <test_value name="ssh.auth.ruser"></test_value>
+              <test_value name="ssh.src.ip">212.247.220.16</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+
+      <rule id="sshd-5" class="violation" provider="balage">
+        <description>ssh auth failure</description>
+        <patterns>
+          <pattern>error: PAM: Authentication failure for illegal user @ESTRING:.user: @from @IPvANY:.dict.Rhost@</pattern>
+          <pattern>error: PAM: Authentication failure for @ESTRING:.user: @from @IPvANY:.dict.Rhost@</pattern>
+        </patterns>
+      </rule>
+
+    </rules>
+    
+  </ruleset>
+  
+</patterndb>
