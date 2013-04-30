@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<patterndb version="3" pub_date="2013-03-13">
+  <ruleset name="IISOWA-Advanced" id="0cb2bcb4-8c1e-11e2-987f-005056936195">
+    <pattern>IISOWA-Advanced</pattern>
+    <rules>
+      <rule id="0cb58296-8c1e-11e2-8799-005056936195" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:iis.filename:.log@: @ESTRING:iis.date: @@ESTRING:iis.time: @@IPvANY:iis.client.ip@ @QSTRING:iis.vhost:"@ @ESTRING:iis.req.method: @@ESTRING:iis.req.url: @@ESTRING:iis.info1: @@ESTRING:iis.info2: @@QSTRING:iis.client.info:"@ @QSTRING:iis.vhost.name:"@ @NUMBER:iis.result.code@ @NUMBER:iis.result.num1@ @NUMBER:iis.result.num2@ @ESTRING:iis.result.num3: @@NUMBER:iis.result.num4@</pattern>
+        </patterns>
+        <tags>
+          <tag>iis</tag>
+          <tag>owa</tag>
+          <tag>advanced</tag>
+        </tags>
+        <values/>
+      </rule>
+    </rules>
+  </ruleset>
+</patterndb>
