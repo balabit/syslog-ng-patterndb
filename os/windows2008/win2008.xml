@@ -1,0 +1,930 @@
+<?xml version="1.0"?>
+<patterndb version="3" pub_date="2013-03-13">
+  <ruleset name="DFS-Audit" id="95a42d3c-ed02-47fc-a57d-c559667378f8">
+    <pattern>Microsoft_Windows_security_auditing.</pattern>
+    <rules>
+      <rule id="c2b8226c-ec50-4a22-88a5-ef158c443c22" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:audit.user::@ Security Microsoft Windows security auditing.: @QSTRING:audit.result:[]@ An attempt was made to access an object.
+
+Subject:
+ Security ID:  @ESTRING:audit.subject.security.id:
+@ Account Name:  @ESTRING:audit.subject.account.name:
+@ Account Domain:  @ESTRING:audit.subject.account.domain:
+@ Logon ID:  @ESTRING:audit.subject.logon.id:
+@
+Object:
+ Object Server: @ESTRING:audit.object.server:
+@ Object Type: @ESTRING:audit.object.type:
+@ Object Name: @ESTRING:audit.object.name:
+@ Handle ID: @ESTRING:audit.object.handle.id:
+@
+Process Information:
+ Process ID: @ESTRING:audit.process.id:
+@ Process Name: @ESTRING:audit.process.name:
+@
+Access Request Information:
+ Accesses: @ESTRING:audit.access.accesses:
+ Access Mask@: @ESTRING:audit.access.mask: @(EventID 4663)</pattern>
+        </patterns>
+        <tags>
+          <tag>security</tag>
+          <tag>audit</tag>
+          <tag>access</tag>
+        </tags>
+        <values/>
+        <examples>
+          <example>
+            <test_message program="Microsoft_Windows_security_auditing.">: Security Microsoft Windows security auditing.: [Success Audit] An attempt was made to access an object.
+
+Subject:
+ Security ID:  S-1-5-18
+ Account Name:  ASP-DFS01$
+ Account Domain:  LINKEDIN
+ Logon ID:  0x3e7
+
+Object:
+ Object Server: Security
+ Object Type: File
+ Object Name: G:\Tier1\Planning\03 - Online\01 - Revised Online Model\05 - Metrics and Dashboards\Ad Inventory\Archive\FY12\Ad Inventory Model 20120904_v2_no PV change_Publish.xlsx
+ Handle ID: 0x21d4
+
+Process Information:
+ Process ID: 0x4f0
+ Process Name: C:\Windows\System32\dfsrs.exe
+
+Access Request Information:
+ Accesses: ReadAttributes
+    
+ Access Mask: 0x80 (EventID 4663)</test_message>
+            <test_values>
+              <test_value name="audit.user"></test_value>
+              <test_value name="audit.result">Success Audit</test_value>
+              <test_value name="audit.subject.security.id">S-1-5-18</test_value>
+              <test_value name="audit.subject.account.name">ASP-DFS01$</test_value>
+              <test_value name="audit.subject.account.domain">LINKEDIN</test_value>
+              <test_value name="audit.subject.logon.id">0x3e7</test_value>
+              <test_value name="audit.object.server">Security</test_value>
+              <test_value name="audit.object.type">File</test_value>
+              <test_value name="audit.object.name">G:\Tier1\Planning\03 - Online\01 - Revised Online Model\05 - Metrics and Dashboards\Ad Inventory\Archive\FY12\Ad Inventory Model 20120904_v2_no PV change_Publish.xlsx</test_value>
+              <test_value name="audit.object.handle.id">0x21d4</test_value>
+              <test_value name="audit.process.id">0x4f0</test_value>
+              <test_value name="audit.process.name">C:\Windows\System32\dfsrs.exe</test_value>
+              <test_value name="audit.access.accesses">ReadAttributes
+    </test_value>
+              <test_value name="audit.access.mask">0x80</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+      <rule id="e173794b-2476-4412-921c-03cc3354d27d" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:audit.user::@ Security Microsoft Windows security auditing.: @QSTRING:audit.result:[]@ The handle to an object was closed.
+
+Subject :
+ Security ID:  @ESTRING:audit.subject.security.id:
+@ Account Name:  @ESTRING:audit.subject.account.name:
+@ Account Domain:  @ESTRING:audit.subject.account.domain:
+@ Logon ID:  @ESTRING:audit.subject.logon.id:
+@
+Object:
+ Object Server:  @ESTRING:audit.object.server:
+@ Handle ID:  @ESTRING:audit.object.handle.id:
+@
+Process Information:
+ Process ID:  @ESTRING:audit.process.id:
+@ Process Name:  @ESTRING:audit.process.name: @(EventID 4658)</pattern>
+        </patterns>
+        <tags>
+          <tag>security</tag>
+          <tag>audit</tag>
+          <tag>close</tag>
+        </tags>
+        <values/>
+        <examples>
+          <example>
+            <test_message program="Microsoft_Windows_security_auditing.">: Security Microsoft Windows security auditing.: [Success Audit] The handle to an object was closed.
+
+Subject :
+ Security ID:  S-1-5-18
+ Account Name:  ASP-DFS01$
+ Account Domain:  LINKEDIN
+ Logon ID:  0x3e7
+
+Object:
+ Object Server:  Security
+ Handle ID:  0x21d4
+
+Process Information:
+ Process ID:  0x4f0
+ Process Name:  C:\Windows\System32\dfsrs.exe (EventID 4658)</test_message>
+            <test_values>
+              <test_value name="audit.user"></test_value>
+              <test_value name="audit.result">Success Audit</test_value>
+              <test_value name="audit.subject.security.id">S-1-5-18</test_value>
+              <test_value name="audit.subject.account.name">ASP-DFS01$</test_value>
+              <test_value name="audit.subject.account.domain">LINKEDIN</test_value>
+              <test_value name="audit.subject.logon.id">0x3e7</test_value>
+              <test_value name="audit.object.server">Security</test_value>
+              <test_value name="audit.object.handle.id">0x21d4</test_value>
+              <test_value name="audit.process.id">0x4f0</test_value>
+              <test_value name="audit.process.name">C:\Windows\System32\dfsrs.exe</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+      <rule id="ec4fdc99-776b-4399-97aa-58cf419702d1" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:audit.user::@ Security Microsoft Windows security auditing.: @QSTRING:audit.result:[]@ A handle to an object was requested.
+
+Subject:
+ Security ID:  @ESTRING:audit.subject.security.id:
+@ Account Name:  @ESTRING:audit.subject.account.name:
+@ Account Domain:  @ESTRING:audit.subject.account.domain:
+@ Logon ID:  @ESTRING:audit.subject.logon.id:
+@
+Object:
+ Object Server:  @ESTRING:audit.object.server:
+@ Object Type:  @ESTRING:audit.object.type:
+@ Object Name:  @ESTRING:audit.object.name:
+@ Handle ID:  @ESTRING:audit.object.handle.id:
+@
+Process Information:
+ Process ID:  @ESTRING:audit.process.id:
+@ Process Name:  @ESTRING:audit.process.name:
+@
+Access Request Information:
+ Transaction ID:  @QSTRING:audit.access.transaction.id:{}@
+ Accesses:  @ESTRING:audit.access.accesses:
+    
+@ Access Reasons:  @ESTRING:audit.access.reasons:
+ Access Mask@:  @ESTRING:audit.access.mask:
+@ Privileges Used for Access Check: @ESTRING:audit.access.priviliges:
+ Restricted@ SID Count: @NUMBER:audit.access.sid.count@ (EventID 4656)</pattern>
+        </patterns>
+        <tags>
+          <tag>security</tag>
+          <tag>audit</tag>
+          <tag>handle</tag>
+        </tags>
+        <values/>
+        <examples>
+          <example>
+            <test_message program="Microsoft_Windows_security_auditing.">: Security Microsoft Windows security auditing.: [Success Audit] A handle to an object was requested.
+
+Subject:
+ Security ID:  S-1-5-18
+ Account Name:  ASP-DFS01$
+ Account Domain:  LINKEDIN
+ Logon ID:  0x3e7
+
+Object:
+ Object Server:  Security
+ Object Type:  File
+ Object Name:  G:\Tier1\Planning\16 - Sales &amp; Marketing\BI Reports\Daily Executive Dashboard (14).msg
+ Handle ID:  0x1458
+
+Process Information:
+ Process ID:  0x4f0
+ Process Name:  C:\Windows\System32\dfsrs.exe
+
+Access Request Information:
+ Transaction ID:  {00000000-0000-0000-0000-000000000000}
+ Accesses:  READ_CONTROL
+    SYNCHRONIZE
+    ReadData (or ListDirectory)
+    ReadEA
+    ReadAttributes
+    
+ Access Reasons:  READ_CONTROL: Granted by D:(A;ID;FA;;;SY)
+    SYNCHRONIZE: Granted by D:(A;ID;FA;;;SY)
+    ReadData (or ListDirectory): Granted by D:(A;ID;FA;;;SY)
+    ReadEA: Granted by D:(A;ID;FA;;;SY)
+    ReadAttributes: Granted by D:(A;ID;FA;;;SY)
+    
+ Access Mask:  0x120089
+ Privileges Used for Access Check: SeBackupPrivilege
+   SeRestorePrivilege
+ Restricted SID Count: 0 (EventID 4656)</test_message>
+            <test_values>
+              <test_value name="audit.user"></test_value>
+              <test_value name="audit.result">Success Audit</test_value>
+              <test_value name="audit.subject.security.id">S-1-5-18</test_value>
+              <test_value name="audit.subject.account.name">ASP-DFS01$</test_value>
+              <test_value name="audit.subject.account.domain">LINKEDIN</test_value>
+              <test_value name="audit.subject.logon.id">0x3e7</test_value>
+              <test_value name="audit.object.server">Security</test_value>
+              <test_value name="audit.object.type">File</test_value>
+              <test_value name="audit.object.name">G:\Tier1\Planning\16 - Sales &amp; Marketing\BI Reports\Daily Executive Dashboard (14).msg</test_value>
+              <test_value name="audit.object.handle.id">0x1458</test_value>
+              <test_value name="audit.process.id">0x4f0</test_value>
+              <test_value name="audit.process.name">C:\Windows\System32\dfsrs.exe</test_value>
+              <test_value name="audit.access.transaction.id">00000000-0000-0000-0000-000000000000</test_value>
+              <test_value name="audit.access.accesses">READ_CONTROL
+    SYNCHRONIZE
+    ReadData (or ListDirectory)
+    ReadEA
+    ReadAttributes</test_value>
+              <test_value name="audit.access.reasons">READ_CONTROL: Granted by D:(A;ID;FA;;;SY)
+    SYNCHRONIZE: Granted by D:(A;ID;FA;;;SY)
+    ReadData (or ListDirectory): Granted by D:(A;ID;FA;;;SY)
+    ReadEA: Granted by D:(A;ID;FA;;;SY)
+    ReadAttributes: Granted by D:(A;ID;FA;;;SY)
+    </test_value>
+              <test_value name="audit.access.mask">0x120089</test_value>
+              <test_value name="audit.access.priviliges">SeBackupPrivilege
+   SeRestorePrivilege</test_value>
+              <test_value name="audit.access.sid.count">0</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+      <rule provider="user" class="system" id="a5920663-30ae-5846-a109-8b32af951fa9">
+        <patterns>
+          <pattern>@ESTRING:audit.user::@ Security Microsoft Windows security auditing.: @QSTRING:audit.result:[]@ An account was successfully logged on.
+
+Subject:
+ Security ID:  @ESTRING:audit.subject.security.id:
+@ Account Name:  @ESTRING:audit.subject.account.name:
+@ Account Domain:  @ESTRING:audit.subject.account.domain:
+@ Logon ID:  @ESTRING:audit.subject.logon.id:
+@
+Logon Type:   @ESTRING:audit.logon.type:
+@
+New Logon:
+ Security ID:  @ESTRING:audit.newlogon.security.id:
+@ Account Name:  @ESTRING:audit.newlogon.account.name:
+@ Account Domain:  @ESTRING:audit.newlogon.account.domain:
+@ Logon ID:  @ESTRING:audit.newlogon.logon.id:
+@ Logon GUID:  @QSTRING:audit.newlogon.logon.guid:{}@
+
+Process Information:
+ Process ID:  @ESTRING:audit.process.id:
+@ Process Name:  @ESTRING:audit.process.name:
+@
+Network Information:
+ Workstation Name: @ESTRING:audit.network.workstation.name:
+@ Source Network Address: @ESTRING:audit.network.source.ip:
+@ Source Port:  @ESTRING:audit.network.source.port:
+@
+Detailed Authentication Information:
+ Logon Process:  @ESTRING:audit.info.logon.process:
+@ Authentication Package: @ESTRING:audit.info.auth.package:
+@ Transited Services: @ESTRING:audit.info.transited.services:
+@ Package Name (NTLM only): @ESTRING:audit.info.package.name:
+@ Key Length:  @ESTRING:audit.info.key.length:
+@</pattern>
+        </patterns>
+        <tags>
+          <tag>security</tag>
+          <tag>audit</tag>
+          <tag>logon</tag>
+          <tag>success</tag>
+        </tags>
+        <examples>
+          <example>
+            <test_message program="Microsoft_Windows_security_auditing.">LSV1-DFS01$: Security Microsoft Windows security auditing.: [Success Audit] An account was successfully logged on.
+
+Subject:
+ Security ID:  S-1-0-0
+ Account Name:  -
+ Account Domain:  -
+ Logon ID:  0x0
+
+Logon Type:   3
+
+New Logon:
+ Security ID:  S-1-5-21-2812736381-1914932952-2891920474-9371
+ Account Name:  LSV1-DFS01$
+ Account Domain:  LINKEDIN
+ Logon ID:  0x345742af
+ Logon GUID:  {881A9991-8FAD-F3C6-C1D1-A3D8972717D2}
+
+Process Information:
+ Process ID:  0x0
+ Process Name:  -
+
+Network Information:
+ Workstation Name: 
+ Source Network Address: 172.16.30.83
+ Source Port:  54796
+
+Detailed Authentication Information:
+ Logon Process:  Kerberos
+ Authentication Package: Kerberos
+ Transited Services: -
+ Package Name (NTLM only): -
+ Key Length:  0
+
+This event is generated when a logon session is created. It is generated on the computer that was accessed.
+
+The subject fields indicate the account on the local system which requested the logon. This is most commonly a service such as the Server service, or a local process such as Winlogon.exe or Services.exe.
+
+The logon type field indicates the kind of logon that occurred. The most common types are 2 (interactive) and 3 (network).
+
+The New Logon fields indicate the account for whom the new logon was created, i.e. the account that was logged on.
+
+The network fields indicate where a remote logon request originated. Workstation name is not always available and may be left blank in some cases.
+
+The authentication information fields provide detailed information about this specific logon request.
+ - Logon GUID is a unique identifier that can be used to correlate this event with a KDC event.
+ - Transited services indicate which intermediate services have participated in this logon request.
+ - Package name indicates which sub-protocol was used among the NTLM protocols.
+ - Key length indicates the length of the generated session key. This will be 0 if no session key was requested. (EventID 4624)</test_message>
+            <test_values>
+              <test_value name="audit.user">LSV1-DFS01$</test_value>
+              <test_value name="audit.result">Success Audit</test_value>
+              <test_value name="audit.subject.security.id">S-1-0-0</test_value>
+              <test_value name="audit.subject.account.name">-</test_value>
+              <test_value name="audit.subject.account.domain">-</test_value>
+              <test_value name="audit.subject.logon.id">0x0</test_value>
+              <test_value name="audit.logon.type">3</test_value>
+              <test_value name="audit.newlogon.security.id">S-1-5-21-2812736381-1914932952-2891920474-9371</test_value>
+              <test_value name="audit.newlogon.account.name">LSV1-DFS01$</test_value>
+              <test_value name="audit.newlogon.account.domain">LINKEDIN</test_value>
+              <test_value name="audit.newlogon.logon.id">0x345742af</test_value>
+              <test_value name="audit.newlogon.logon.guid">881A9991-8FAD-F3C6-C1D1-A3D8972717D2</test_value>
+              <test_value name="audit.process.id">0x0</test_value>
+              <test_value name="audit.process.name">-</test_value>
+              <test_value name="audit.network.workstation.name"></test_value>
+              <test_value name="audit.network.source.ip">172.16.30.83</test_value>
+              <test_value name="audit.network.source.port">54796</test_value>
+              <test_value name="audit.info.logon.process">Kerberos</test_value>
+              <test_value name="audit.info.auth.package">Kerberos</test_value>
+              <test_value name="audit.info.transited.services">-</test_value>
+              <test_value name="audit.info.package.name">-</test_value>
+              <test_value name="audit.info.key.length">0</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+      <rule id="d6f4fe05-c9f3-4adc-ba31-1ad900f5c52b" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:audit.user::@ Security Microsoft Windows security auditing.: @QSTRING:audit.result:[]@ An account was logged off.
+
+Subject:
+ Security ID:  @ESTRING:audit.subject.security.id:
+@ Account Name:  @ESTRING:audit.subject.account.name:
+@ Account Domain:  @ESTRING:audit.subject.account.domain:
+@ Logon ID:  @ESTRING:audit.subject.logon.id:
+@
+Logon Type:   @ESTRING:audit.logon.type:
+@
+This event is generated when a logon session is destroyed. It may be positively correlated with a logon event using the Logon ID value. Logon IDs are only unique between reboots on the same computer. (EventID 4634)</pattern>
+        </patterns>
+        <tags>
+          <tag>security</tag>
+          <tag>audit</tag>
+          <tag>logoff</tag>
+        </tags>
+        <values/>
+        <examples>
+          <example>
+            <test_message program="Microsoft_Windows_security_auditing.">ESV4-DFS02$: Security Microsoft Windows security auditing.: [Success Audit] An account was logged off.
+
+Subject:
+ Security ID:  S-1-5-21-2812736381-1914932952-2891920474-31423
+ Account Name:  ESV4-DFS02$
+ Account Domain:  LINKEDIN
+ Logon ID:  0x344b6eac
+
+Logon Type:   3
+
+This event is generated when a logon session is destroyed. It may be positively correlated with a logon event using the Logon ID value. Logon IDs are only unique between reboots on the same computer. (EventID 4634)</test_message>
+            <test_values>
+              <test_value name="audit.user">ESV4-DFS02$</test_value>
+              <test_value name="audit.result">Success Audit</test_value>
+              <test_value name="audit.subject.security.id">S-1-5-21-2812736381-1914932952-2891920474-31423</test_value>
+              <test_value name="audit.subject.account.name">ESV4-DFS02$</test_value>
+              <test_value name="audit.subject.account.domain">LINKEDIN</test_value>
+              <test_value name="audit.subject.logon.id">0x344b6eac</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+      <rule id="80fb2cea-8e01-4588-89ba-b7e4b09971c4" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:audit.user::@ Security Microsoft Windows security auditing.: @QSTRING:audit.result:[]@ Special privileges assigned to new logon.
+
+Subject:
+ Security ID:  @ESTRING:audit.subject.security.id:
+@ Account Name:  @ESTRING:audit.subject.account.name:
+@ Account Domain:  @ESTRING:audit.subject.account.domain:
+@ Logon ID:  @ESTRING:audit.subject.logon.id:
+@
+Privileges:  @ESTRING:audit.privileges: (@EventID 4672)</pattern>
+        </patterns>
+        <tags>
+          <tag>security</tag>
+          <tag>audit</tag>
+          <tag>privilege</tag>
+        </tags>
+        <values/>
+        <examples>
+          <example>
+            <test_message program="Microsoft_Windows_security_auditing.">: Security Microsoft Windows security auditing.: [Success Audit] Special privileges assigned to new logon.
+
+Subject:
+ Security ID:  S-1-5-21-2812736381-1914932952-2891920474-1617
+ Account Name:  balvarez-a
+ Account Domain:  LINKEDIN
+ Logon ID:  0x34e2b929
+
+Privileges:  SeSecurityPrivilege
+   SeBackupPrivilege
+   SeRestorePrivilege
+   SeTakeOwnershipPrivilege
+   SeDebugPrivilege
+   SeSystemEnvironmentPrivilege
+   SeLoadDriverPrivilege
+   SeImpersonatePrivilege (EventID 4672)</test_message>
+            <test_values>
+              <test_value name="audit.user"></test_value>
+              <test_value name="audit.result">Success Audit</test_value>
+              <test_value name="audit.subject.security.id">S-1-5-21-2812736381-1914932952-2891920474-1617</test_value>
+              <test_value name="audit.subject.account.name">balvarez-a</test_value>
+              <test_value name="audit.subject.account.domain">LINKEDIN</test_value>
+              <test_value name="audit.subject.logon.id">0x34e2b929</test_value>
+              <test_value name="audit.privileges">SeSecurityPrivilege
+   SeBackupPrivilege
+   SeRestorePrivilege
+   SeTakeOwnershipPrivilege
+   SeDebugPrivilege
+   SeSystemEnvironmentPrivilege
+   SeLoadDriverPrivilege
+   SeImpersonatePrivilege</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+      <rule id="c26d86fc-b0cd-410d-9c8e-1ac4087abfaf" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:audit.user::@ Security Microsoft Windows security auditing.: @QSTRING:audit.result:[]@ An attempt was made to duplicate a handle to an object.
+
+Subject:
+ Security ID:  @ESTRING:audit.subject.security.id:
+@ Account Name:  @ESTRING:audit.subject.account.name:
+@ Account Domain:  @ESTRING:audit.subject.account.domain:
+@ Logon ID:  @ESTRING:audit.subject.logon.id:
+@
+Source Handle Information:
+ Source Handle ID: @ESTRING:audit.source.handle.id:
+@ Source Process ID: @ESTRING:audit.source.process.id:
+@
+New Handle Information:
+ Target Handle ID: @ESTRING:audit.target.handle.id:
+@ Target Process ID: @ESTRING:audit.target.process.id: @(EventID 4690)</pattern>
+        </patterns>
+        <tags>
+          <tag>security</tag>
+          <tag>audit</tag>
+          <tag>duplicate</tag>
+        </tags>
+        <values/>
+        <examples>
+          <example>
+            <test_message program="Microsoft_Windows_security_auditing.">: Security Microsoft Windows security auditing.: [Success Audit] An attempt was made to duplicate a handle to an object.
+
+Subject:
+ Security ID:  S-1-5-18
+ Account Name:  ASP-DFS01$
+ Account Domain:  LINKEDIN
+ Logon ID:  0x3e7
+
+Source Handle Information:
+ Source Handle ID: 0x39d88
+ Source Process ID: 0x4f0
+
+New Handle Information:
+ Target Handle ID: 0x1f70
+ Target Process ID: 0x4 (EventID 4690)</test_message>
+            <test_values>
+              <test_value name="audit.user"></test_value>
+              <test_value name="audit.result">Success Audit</test_value>
+              <test_value name="audit.subject.security.id">S-1-5-18</test_value>
+              <test_value name="audit.subject.account.name">ASP-DFS01$</test_value>
+              <test_value name="audit.subject.account.domain">LINKEDIN</test_value>
+              <test_value name="audit.subject.logon.id">0x3e7</test_value>
+              <test_value name="audit.source.handle.id">0x39d88</test_value>
+              <test_value name="audit.source.process.id">0x4f0</test_value>
+              <test_value name="audit.target.handle.id">0x1f70</test_value>
+              <test_value name="audit.target.process.id">0x4</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+      <rule id="b9b8323f-e07b-4a28-ab98-34d4cc9cdc47" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:audit.user::@ Security Microsoft Windows security auditing.: @QSTRING:audit.result:[]@ An object was deleted.
+
+Subject:
+ Security ID:  @ESTRING:audit.subject.security.id:
+@ Account Name:  @ESTRING:audit.subject.account.name:
+@ Account Domain:  @ESTRING:audit.subject.account.domain:
+@ Logon ID:  @ESTRING:audit.subject.logon.id:
+@
+Object:
+ Object Server: @ESTRING:audit.object.server:
+@ Handle ID: @ESTRING:audit.object.handle.id:
+@
+Process Information:
+ Process ID: @ESTRING:audit.process.id:
+@ Process Name: @ESTRING:audit.process.name:
+@ Transaction ID: @QSTRING:audit.process.transaction.id:{}@ (EventID 4660)</pattern>
+        </patterns>
+        <tags>
+          <tag>security</tag>
+          <tag>audit</tag>
+          <tag>delete</tag>
+        </tags>
+        <values/>
+        <examples>
+          <example>
+            <test_message program="Microsoft_Windows_security_auditing.">: Security Microsoft Windows security auditing.: [Success Audit] An object was deleted.
+
+Subject:
+ Security ID:  S-1-5-18
+ Account Name:  ASP-DFS01$
+ Account Domain:  LINKEDIN
+ Logon ID:  0x3e7
+
+Object:
+ Object Server: Security
+ Handle ID: 0x3965c
+
+Process Information:
+ Process ID: 0x4f0
+ Process Name: C:\Windows\System32\dfsrs.exe
+ Transaction ID: {00000000-0000-0000-0000-000000000000} (EventID 4660)</test_message>
+            <test_values>
+              <test_value name="audit.user"></test_value>
+              <test_value name="audit.result">Success Audit</test_value>
+              <test_value name="audit.subject.security.id">S-1-5-18</test_value>
+              <test_value name="audit.subject.account.name">ASP-DFS01$</test_value>
+              <test_value name="audit.subject.account.domain">LINKEDIN</test_value>
+              <test_value name="audit.subject.logon.id">0x3e7</test_value>
+              <test_value name="audit.object.server">Security</test_value>
+              <test_value name="audit.object.handle.id">0x3965c</test_value>
+              <test_value name="audit.process.id">0x4f0</test_value>
+              <test_value name="audit.process.name">C:\Windows\System32\dfsrs.exe</test_value>
+              <test_value name="audit.process.transaction.id">00000000-0000-0000-0000-000000000000</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+      <rule id="e252abc9-a556-4ffb-8d5c-79a78209eee1" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:audit.user::@ Security Microsoft Windows security auditing.: @QSTRING:audit.result:[]@ Auditing settings on object were changed.
+
+Subject:
+ Security ID:  @ESTRING:audit.subject.security.id:
+@ Account Name:  @ESTRING:audit.subject.account.name:
+@ Account Domain:  @ESTRING:audit.subject.account.domain:
+@ Logon ID:  @ESTRING:audit.subject.logon.id:
+@
+Object:
+ Object Server: @ESTRING:audit.object.server:
+@ Object Type: @ESTRING:audit.object.type:
+@ Object Name: @ESTRING:audit.object.name:
+@ Handle ID: @ESTRING:audit.object.handle.id:
+@
+Process Information:
+ Process ID: @ESTRING:audit.process.id:
+@ Process Name: @ESTRING:audit.process.name:
+@
+Auditing Settings:
+ Original Security Descriptor: @ESTRING:audit.auditing.original.descriptor:
+ New@ Security Descriptor:  @ESTRING:audit.auditing.new.descriptor: (@EventID 4907)</pattern>
+        </patterns>
+        <tags>
+          <tag>security</tag>
+          <tag>audit</tag>
+          <tag>change</tag>
+        </tags>
+        <values/>
+        <examples>
+          <example>
+            <test_message program="Microsoft_Windows_security_auditing.">: Security Microsoft Windows security auditing.: [Success Audit] Auditing settings on object were changed.
+
+Subject:
+ Security ID:  S-1-5-18
+ Account Name:  ASP-DFS01$
+ Account Domain:  LINKEDIN
+ Logon ID:  0x3e7
+
+Object:
+ Object Server: Security
+ Object Type: File
+ Object Name: G:\System Volume Information\DFSR\Private\{3ED422FD-C9CD-4A2C-8E54-64860D7493A2}-{4888837D-F3A8-488D-B19E-93C6D5FB0080}\Installing\Mar'13 Forecast - Ad-{473CA436-B17D-4D17-B27E-3593C9CD4B36}-v2521590.xlsx
+ Handle ID: 0x3a0cc
+
+Process Information:
+ Process ID: 0x4f0
+ Process Name: C:\Windows\System32\dfsrs.exe
+
+Auditing Settings:
+ Original Security Descriptor: 
+ New Security Descriptor:  S:ARAI(AU;IDSAFA;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;WD) (EventID 4907)</test_message>
+            <test_values>
+              <test_value name="audit.user"></test_value>
+              <test_value name="audit.result">Success Audit</test_value>
+              <test_value name="audit.subject.security.id">S-1-5-18</test_value>
+              <test_value name="audit.subject.account.name">ASP-DFS01$</test_value>
+              <test_value name="audit.subject.account.domain">LINKEDIN</test_value>
+              <test_value name="audit.subject.logon.id">0x3e7</test_value>
+              <test_value name="audit.object.server">Security</test_value>
+              <test_value name="audit.object.type">File</test_value>
+              <test_value name="audit.object.name">G:\System Volume Information\DFSR\Private\{3ED422FD-C9CD-4A2C-8E54-64860D7493A2}-{4888837D-F3A8-488D-B19E-93C6D5FB0080}\Installing\Mar'13 Forecast - Ad-{473CA436-B17D-4D17-B27E-3593C9CD4B36}-v2521590.xlsx</test_value>
+              <test_value name="audit.object.handle.id">0x3a0cc</test_value>
+              <test_value name="audit.process.id">0x4f0</test_value>
+              <test_value name="audit.process.name">C:\Windows\System32\dfsrs.exe</test_value>
+              <test_value name="audit.auditing.original.descriptor"></test_value>
+              <test_value name="audit.auditing.new.descriptor">S:ARAI(AU;IDSAFA;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;WD)</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+      <rule id="95903190-72b5-4797-8969-018d086e591b" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:audit.user::@ Security Microsoft Windows security auditing.: @QSTRING:audit.result:[]@ Permissions on an object were changed.
+
+Subject:
+ Security ID:  @ESTRING:audit.subject.security.id:
+@ Account Name:  @ESTRING:audit.subject.account.name:
+@ Account Domain:  @ESTRING:audit.subject.account.domain:
+@ Logon ID:  @ESTRING:audit.subject.logon.id:
+@
+Object:
+ Object Server: @ESTRING:audit.object.server:
+@ Object Type: @ESTRING:audit.object.type:
+@ Object Name: @ESTRING:audit.object.name:
+@ Handle ID: @ESTRING:audit.object.handle.id:
+@
+Process:
+ Process ID: @ESTRING:audit.process.id:
+@ Process Name: @ESTRING:audit.process.name:
+@
+Permissions Change:
+ Original Security Descriptor: @ESTRING:audit.permission.original.descriptor:
+ New@ Security Descriptor: @ESTRING:audit.permission.new.descriptor: (@EventID 4670)</pattern>
+        </patterns>
+        <tags>
+          <tag>security</tag>
+          <tag>audit</tag>
+          <tag>permission</tag>
+          <tag>change</tag>
+        </tags>
+        <values/>
+        <examples>
+          <example>
+            <test_message program="Microsoft_Windows_security_auditing.">: Security Microsoft Windows security auditing.: [Success Audit] Permissions on an object were changed.
+
+Subject:
+ Security ID:  S-1-5-18
+ Account Name:  ASP-DFS01$
+ Account Domain:  LINKEDIN
+ Logon ID:  0x3e7
+
+Object:
+ Object Server: Security
+ Object Type: File
+ Object Name: G:\System Volume Information\DFSR\$db_normal$
+ Handle ID: 0x3a00c
+
+Process:
+ Process ID: 0x4f0
+ Process Name: C:\Windows\System32\dfsrs.exe
+
+Permissions Change:
+ Original Security Descriptor: 
+ New Security Descriptor: G:SY (EventID 4670)</test_message>
+            <test_values>
+              <test_value name="audit.user"></test_value>
+              <test_value name="audit.result">Success Audit</test_value>
+              <test_value name="audit.subject.security.id">S-1-5-18</test_value>
+              <test_value name="audit.subject.account.name">ASP-DFS01$</test_value>
+              <test_value name="audit.subject.account.domain">LINKEDIN</test_value>
+              <test_value name="audit.subject.logon.id">0x3e7</test_value>
+              <test_value name="audit.object.server">Security</test_value>
+              <test_value name="audit.object.type">File</test_value>
+              <test_value name="audit.object.name">G:\System Volume Information\DFSR\$db_normal$</test_value>
+              <test_value name="audit.object.handle.id">0x3a00c</test_value>
+              <test_value name="audit.process.id">0x4f0</test_value>
+              <test_value name="audit.process.name">C:\Windows\System32\dfsrs.exe</test_value>
+              <test_value name="audit.permission.original.descriptor"></test_value>
+              <test_value name="audit.permission.new.descriptor">G:SY</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+      <rule provider="user" class="system" id="77b22317-1282-a642-8837-9f9174d96ab2">
+        <patterns>
+          <pattern>@ESTRING:audit.user::@ Security Microsoft Windows security auditing.: @QSTRING:audit.result:[]@ An account failed to log on.
+
+Subject:
+ Security ID:  @ESTRING:audit.subject.security.id:
+@ Account Name:  @ESTRING:audit.subject.account.name:
+@ Account Domain:  @ESTRING:audit.subject.account.domain:
+@ Logon ID:  @ESTRING:audit.subject.logon.id:
+@
+Logon Type:   @ESTRING:audit.logon.type:
+@
+Account For Which Logon Failed:
+ Security ID:  @ESTRING:audit.account.security.id:
+@ Account Name:  @ESTRING:audit.account.name:
+@ Account Domain:  @ESTRING:audit.account.domain:
+@
+Failure Information:
+ Failure Reason:  @ESTRING:audit.failure.reason:
+@ Status:   @ESTRING:audit.failure.status:
+@ Sub Status:  @ESTRING:audit.failure.substatus:
+@
+Process Information:
+ Caller Process ID: @ESTRING:audit.process.id:
+@ Caller Process Name: @ESTRING:audit.process.name:
+@
+Network Information:
+ Workstation Name: @ESTRING:audit.network.workstation.name:
+@ Source Network Address: @ESTRING:audit.network.source.ip:
+@ Source Port:  @ESTRING:audit.network.source.port:
+@
+Detailed Authentication Information:
+ Logon Process:  @ESTRING:audit.info.logon.process:
+@ Authentication Package: @ESTRING:audit.info.auth.package:
+@ Transited Services: @ESTRING:audit.info.transited.service:
+@ Package Name (NTLM only): @ESTRING:audit.info.package.name:
+@ Key Length:  @ESTRING:audit.info.key.length:
+@
+This event is generated when a logon request fails. It is generated on the computer where access was attempted.
+
+The Subject fields indicate the account on the local system which requested the logon. This is most commonly a service such as the Server service, or a local process such as Winlogon.exe or Services.exe.
+
+The Logon Type field indicates the kind of logon that was requested. The most common types are 2 (interactive) and 3 (network).
+
+The Process Information fields indicate which account and process on the system requested the logon.
+
+The Network Information fields indicate where a remote logon request originated. Workstation name is not always available and may be left blank in some cases.
+
+The authentication information fields provide detailed information about this specific logon request.
+ - Transited services indicate which intermediate services have participated in this logon request.
+ - Package name indicates which sub-protocol was used among the NTLM protocols.
+ - Key length indicates the length of the generated session key. This will be 0 if no session key was requested. (EventID 4625)</pattern>
+        </patterns>
+        <tags>
+          <tag>security</tag>
+          <tag>audit</tag>
+          <tag>logon</tag>
+          <tag>failure</tag>
+        </tags>
+        <examples>
+          <example>
+            <test_message program="Microsoft_Windows_security_auditing.">svcMSCOM-DataR: Security Microsoft Windows security auditing.: [] An account failed to log on.
+
+Subject:
+ Security ID:  S-1-5-21-2812736381-1914932952-2891920474-20938
+ Account Name:  svcMSCOM-DataR
+ Account Domain:  LINKEDIN
+ Logon ID:  0x14ce8ec1
+
+Logon Type:   2
+
+Account For Which Logon Failed:
+ Security ID:  S-1-0-0
+ Account Name:  svcMSCOM-DataR
+ Account Domain:  LINKEDIN
+
+Failure Information:
+ Failure Reason:  Unknown user name or bad password.
+ Status:   0xc000006d
+ Sub Status:  0xc000006a
+
+Process Information:
+ Caller Process ID: 0x81c
+ Caller Process Name: F:\Program Files\Microsoft SQL Server\MSRS10_50.MSSQLSERVER\Reporting Services\ReportServer\bin\ReportingServicesService.exe
+
+Network Information:
+ Workstation Name: ESV4-SQL2008N1
+ Source Network Address: -
+ Source Port:  -
+
+Detailed Authentication Information:
+ Logon Process:  Advapi  
+ Authentication Package: Negotiate
+ Transited Services: -
+ Package Name (NTLM only): -
+ Key Length:  0
+
+This event is generated when a logon request fails. It is generated on the computer where access was attempted.
+
+The Subject fields indicate the account on the local system which requested the logon. This is most commonly a service such as the Server service, or a local process such as Winlogon.exe or Services.exe.
+
+The Logon Type field indicates the kind of logon that was requested. The most common types are 2 (interactive) and 3 (network).
+
+The Process Information fields indicate which account and process on the system requested the logon.
+
+The Network Information fields indicate where a remote logon request originated. Workstation name is not always available and may be left blank in some cases.
+
+The authentication information fields provide detailed information about this specific logon request.
+ - Transited services indicate which intermediate services have participated in this logon request.
+ - Package name indicates which sub-protocol was used among the NTLM protocols.
+ - Key length indicates the length of the generated session key. This will be 0 if no session key was requested. (EventID 4625)</test_message>
+            <test_values>
+              <test_value name="audit.user">svcMSCOM-DataR</test_value>
+              <test_value name="audit.result"></test_value>
+              <test_value name="audit.subject.security.id">S-1-5-21-2812736381-1914932952-2891920474-20938</test_value>
+              <test_value name="audit.subject.account.name">svcMSCOM-DataR</test_value>
+              <test_value name="audit.subject.account.domain">LINKEDIN</test_value>
+              <test_value name="audit.subject.logon.id">0x14ce8ec1</test_value>
+              <test_value name="audit.logon.type">2</test_value>
+              <test_value name="audit.account.security.id">S-1-0-0</test_value>
+              <test_value name="audit.account.name">svcMSCOM-DataR</test_value>
+              <test_value name="audit.account.domain">LINKEDIN</test_value>
+              <test_value name="audit.failure.reason">Unknown user name or bad password.</test_value>
+              <test_value name="audit.failure.status">0xc000006d</test_value>
+              <test_value name="audit.failure.substatus">0xc000006a</test_value>
+              <test_value name="audit.process.id">0x81c</test_value>
+              <test_value name="audit.process.name">F:\Program Files\Microsoft SQL Server\MSRS10_50.MSSQLSERVER\Reporting Services\ReportServer\bin\ReportingServicesService.exe</test_value>
+              <test_value name="audit.network.workstation.name">ESV4-SQL2008N1</test_value>
+              <test_value name="audit.network.source.ip">-</test_value>
+              <test_value name="audit.network.source.port">-</test_value>
+              <test_value name="audit.info.logon.process">Advapi  </test_value>
+              <test_value name="audit.info.auth.package">Negotiate</test_value>
+              <test_value name="audit.info.transited.service">-</test_value>
+              <test_value name="audit.info.package.name">-</test_value>
+              <test_value name="audit.info.key.length">0</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+      <rule provider="user" class="system" id="6ec9f4d4-9c85-384c-a398-e68c1c3599eb">
+        <patterns>
+          <pattern>@ESTRING:audit.user::@ Security Microsoft Windows security auditing.: @QSTRING:audit.result:[]@ A logon was attempted using explicit credentials.
+
+Subject:
+ Security ID:  @ESTRING:audit.subject.security.id:
+@ Account Name:  @ESTRING:audit.subject.account.name:
+@ Account Domain:  @ESTRING:audit.subject.account.domain:
+@ Logon ID:  @ESTRING:audit.subject.logon.id:
+@ Logon GUID:  @ESTRING:audit.subject.logon.guid:
+@
+Account Whose Credentials Were Used:
+ Account Name:  @ESTRING:audit.account.name:
+@ Account Domain:  @ESTRING:audit.account.domain:
+@ Logon GUID:  @ESTRING:audit.account.logon.guid:
+@
+Target Server:
+ Target Server Name: @ESTRING:audit.target.server.name:
+@ Additional Information: @ESTRING:audit.target.info:
+@
+Process Information:
+ Process ID:  @ESTRING:audit.process.id:
+@ Process Name:  @ESTRING:audi.process.name:
+@
+Network Information:
+ Network Address: @ESTRING:audit.network.ip:
+@ Port:   @ESTRING:audit.network.port:
+@
+This event is generated when a process attempts to log on an account by explicitly specifying that account&#x2019;s credentials.  This most commonly occurs in batch-type configurations such as scheduled tasks, or when using the RUNAS command. (EventID 4648)</pattern>
+        </patterns>
+        <tags>
+          <tag>security</tag>
+          <tag>audit</tag>
+          <tag>logon</tag>
+          <tag>success</tag>
+          <tag>explicit</tag>
+        </tags>
+        <examples>
+          <example>
+            <test_message program="Microsoft_Windows_security_auditing.">admonitor: Security Microsoft Windows security auditing.: [Success Audit] A logon was attempted using explicit credentials.
+
+Subject:
+ Security ID:  S-1-5-18
+ Account Name:  ESV4-ADC03$
+ Account Domain:  LINKEDIN
+ Logon ID:  0x3e7
+ Logon GUID:  {0C951243-AE88-9D09-F2B7-D84472A95FA6}
+
+Account Whose Credentials Were Used:
+ Account Name:  admonitor
+ Account Domain:  LINKEDIN
+ Logon GUID:  {00000000-0000-0000-0000-000000000000}
+
+Target Server:
+ Target Server Name: localhost
+ Additional Information: localhost
+
+Process Information:
+ Process ID:  0x254
+ Process Name:  C:\Windows\System32\lsass.exe
+
+Network Information:
+ Network Address: 172.18.46.250
+ Port:   32932
+
+This event is generated when a process attempts to log on an account by explicitly specifying that account&#x2019;s credentials.  This most commonly occurs in batch-type configurations such as scheduled tasks, or when using the RUNAS command. (EventID 4648)</test_message>
+          </example>
+        </examples>
+      </rule>
+    </rules>
+  </ruleset>
+</patterndb>
