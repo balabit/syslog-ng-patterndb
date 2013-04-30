@@ -1,0 +1,424 @@
+<?xml version="1.0"?>
+<patterndb version="3" pub_date="2011-06-02">
+  <ruleset name="postfix/cleanup" id="477cb0bc-bf0e-437b-b111-668f463be5cf">
+    <pattern>postfix/cleanup</pattern>
+    <rules>
+      <rule id="39c2730f-1889-4c7c-95bd-5223f677ed27" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:postfix.qid::@ message-id=@QSTRING:postfix.msgid:&lt;&gt;@</pattern>
+        </patterns>
+        <tags>
+          <tag>postfix</tag>
+          <tag>cleanup</tag>
+        </tags>
+      </rule>
+      <rule id="4b887907-6435-4f46-aa07-47f932fe9cd3" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:postfix.qid::@ warning: header @ESTRING:postfix.header.name::@ @ESTRING:postfix.header.value: from @@ESTRING:postfix.client.hostname:[@@IPvANY:postfix.client.ip@]; from=@QSTRING:postfix.sender:&lt;&gt;@ to=@QSTRING:postfix.recipient:&lt;&gt;@ proto=@ESTRING:postfix.proto: @helo=@QSTRING:postfix.helo:&lt;&gt;@</pattern>
+          <pattern>@ESTRING:postfix.qid::@ warning: header @ESTRING:postfix.header.name::@ @ESTRING:postfix.header.value: from @local; from=@QSTRING:postfix.sender:&lt;&gt;@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="postfix/cleanup">52520490001: warning: header Subject: =?ISO-8859-1?Q?Alumni_Hirlevel_a_Corvinus_Egyetemen_20?=? =?ISO-8859-1?Q?11-ben_v=E9gzett_hallgat=F3knak?= from unknown[192.168.25.183]; from=&lt;alumni@uni-corvinus.hu&gt; to=&lt;melinda@esnet.hu&gt; proto=ESMTP helo=&lt;msgserv2.uni-corvinus.hu&gt;</test_message>
+            <test_values>
+              <test_value name="postfix.qid">52520490001</test_value>
+              <test_value name="postfix.header.name">Subject</test_value>
+              <test_value name="postfix.header.value">=?ISO-8859-1?Q?Alumni_Hirlevel_a_Corvinus_Egyetemen_20?=? =?ISO-8859-1?Q?11-ben_v=E9gzett_hallgat=F3knak?=</test_value>
+              <test_value name="postfix.client.hostname">unknown</test_value>
+              <test_value name="postfix.client.ip">192.168.25.183</test_value>
+              <test_value name="postfix.sender">alumni@uni-corvinus.hu</test_value>
+              <test_value name="postfix.recipient">melinda@esnet.hu</test_value>
+              <test_value name="postfix.proto">ESMTP</test_value>
+              <test_value name="postfix.helo">msgserv2.uni-corvinus.hu</test_value>
+            </test_values>
+          </example>
+          <example>
+            <test_message program="postfix/cleanup">66BFB3C3487: warning: header Subject: [seapig-shop] Order confirmation from local; from=&lt;shop@seapig-shop.tld&gt;</test_message>
+            <test_values>
+              <test_value name="postfix.qid">66BFB3C3487</test_value>
+              <test_value name="postfix.header.name">Subject</test_value>
+              <test_value name="postfix.header.value">[seapig-shop] Order confirmation</test_value>
+              <test_value name="postfix.sender">shop@seapig-shop.tld</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <tags>
+          <tag>postfix</tag>
+          <tag>cleanup</tag>
+        </tags>
+      </rule>
+    </rules>
+  </ruleset>
+  <ruleset name="postfix/lmtp" id="477cb0bc-bf0e-437b-b111-668f463be5ca">
+    <pattern>postfix/lmtp</pattern>
+    <rules>
+      <rule id="dad57bd5-6f9e-47b8-9e9f-401e3eb34334" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:postfix.qid::@ to=@QSTRING:postfix.to:&lt;&gt;@, orig_to=@QSTRING:postfix.orig_to:&lt;&gt;@, relay=@ESTRING:postfix.relay.hostname:[@@ESTRING:postfix.relay.path:]@, delay=@ESTRING:postfix.delay:,@ delays=@ESTRING:postfix.delays.1:/@@ESTRING:postfix.delays.2:/@@ESTRING:postfix.delays.3:/@@ESTRING:postfix.delays.4:,@ dsn=@ESTRING:postfix.dsn:,@ status=@ESTRING:postfix.status: @@QSTRING:postfix.statusmsg:()@</pattern>
+        </patterns>
+        <tags>
+          <tag>postfix</tag>
+          <tag>lmtp</tag>
+        </tags>
+      </rule>
+      <rule id="ff014974-32c9-4155-a890-fa863b43f3dd" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:postfix.qid::@ to=@QSTRING:postfix.to:&lt;&gt;@, relay=@ESTRING:postfix.relay.hostname:[@@ESTRING:postfix.relay.path:]@, delay=@ESTRING:postfix.delay:,@ delays=@ESTRING:postfix.delays.1:/@@ESTRING:postfix.delays.2:/@@ESTRING:postfix.delays.3:/@@ESTRING:postfix.delays.4:,@ dsn=@ESTRING:postfix.dsn:,@ status=@ESTRING:postfix.status: @@QSTRING:postfix.statusmsg:()@</pattern>
+        </patterns>
+        <tags>
+          <tag>postfix</tag>
+          <tag>lmtp</tag>
+        </tags>
+      </rule>
+    </rules>
+  </ruleset>
+  <ruleset name="postfix/smtp" id="47acb0bc-bf0e-437b-b111-668f463be5ca">
+    <pattern>postfix/smtp</pattern>
+    <rules>
+      <rule id="06c0f2c3-85bf-4119-96ab-c395b2f2cb5e" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:postfix.qid::@ to=@QSTRING:postfix.to:&lt;&gt;@, relay=@ESTRING:postfix.relay.hostname:[@@IPv4:postfix.relay.ip@]:@NUMBER:postfix.relay.port@, delay=@ESTRING:postfix.delay:,@ delays=@ESTRING:postfix.delays.1:/@@ESTRING:postfix.delays.2:/@@ESTRING:postfix.delays.3:/@@ESTRING:postfix.delays.4:,@ dsn=@ESTRING:postfix.dsn:,@ status=@ESTRING:postfix.status: @@ANYSTRING:postfix.relay.msg@</pattern>
+          <pattern>@ESTRING:postfix.qid::@ to=@QSTRING:postfix.to:&lt;&gt;@, relay=@ESTRING:postfix.relay.hostname:[@@IPv4:postfix.relay.ip@]:@NUMBER:postfix.relay.port@, delay=@ESTRING:postfix.delay:,@ delays=@ESTRING:postfix.delays.1:/@@ESTRING:postfix.delays.2:/@@ESTRING:postfix.delays.3:/@@ESTRING:postfix.delays.4:,@ dsn=@ESTRING:postfix.dsn:,@ status=@ESTRING:postfix.status: @(250 2.0.0 Ok: queued as @ESTRING:postfix.relay.qid:)@</pattern>
+          <pattern>@ESTRING:postfix.qid::@ to=@QSTRING:postfix.to:&lt;&gt;@, relay=none, delay=@ESTRING:postfix.delay:,@ delays=@ESTRING:postfix.delays.1:/@@ESTRING:postfix.delays.2:/@@ESTRING:postfix.delays.3:/@@ESTRING:postfix.delays.4:,@ dsn=@ESTRING:postfix.dsn:,@ status=@ESTRING:postfix.status: @@ANYSTRING:postfix.relay.msg@</pattern>
+        </patterns>
+        <tags>
+          <tag>postfix</tag>
+          <tag>smtp</tag>
+        </tags>
+      </rule>
+      <rule id="c5b14ee0-f25a-4309-b64d-f4b2deeaa808" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:postfix.qid::@ to=@QSTRING:postfix.to:&lt;&gt;@, orig_to=@QSTRING:postfix.orig_to:&lt;&gt;@, relay=@ESTRING:postfix.relay.hostname:[@@IPv4:postfix.relay.ip@]:@NUMBER:postfix.relay.port@, delay=@ESTRING:postfix.delay:,@ delays=@ESTRING:postfix.delays.1:/@@ESTRING:postfix.delays.2:/@@ESTRING:postfix.delays.3:/@@ESTRING:postfix.delays.4:,@ dsn=@ESTRING:postfix.dsn:,@ status=@ESTRING:postfix.status: @@ANYSTRING:postfix.relay.msg@</pattern>
+        </patterns>
+        <tags>
+          <tag>postfix</tag>
+          <tag>smtp</tag>
+        </tags>
+      </rule>
+      <rule id="cc57837f-b0ce-431b-b765-e4692d20e396" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:postfix.qid::@ host @ESTRING:postfix.relay.hostname:[@@IPv4:postfix.relay.ip@] said: @ANYSTRING:postfix.relay.msg@</pattern>
+        </patterns>
+        <tags>
+          <tag>postfix</tag>
+          <tag>smtp</tag>
+        </tags>
+        <examples>
+          <example>
+            <test_message program="postfix/smtp">BC9D03C349E: host mail.qwe.tld[192.168.96.10] said: 451 This user is over quota, try again later (in reply to RCPT TO command)</test_message>
+            <test_values>
+              <test_value name="postfix.qid">BC9D03C349E</test_value>
+              <test_value name="postfix.relay.hostname">mail.qwe.tld</test_value>
+              <test_value name="postfix.relay.ip">192.168.96.10</test_value>
+              <test_value name="postfix.relay.msg">451 This user is over quota, try again later (in reply to RCPT TO command)</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+    </rules>
+  </ruleset>
+  <ruleset name="postfix/smtpd" id="47acb0bc-af0e-437b-b111-668f463be5ca">
+    <pattern>postfix/smtpd</pattern>
+    <rules>
+      <rule id="0fa4ec0c-1fb3-4ccd-8e90-70007ea414a2" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:postfix.qid::@ client=@ESTRING:postfix.client.hostname:[@@IPv4:postfix.client.ip@]</pattern>
+          <pattern>@ESTRING:postfix.qid::@ client=@ESTRING:postfix.client.hostname:[@@IPv4:postfix.client.ip@], sasl_method=@ESTRING:postfix.sasl.method:,@ sasl_username=@ANYSTRING:postfix.sasl.username@</pattern>
+        </patterns>
+        <tags>
+          <tag>postfix</tag>
+          <tag>smtpd</tag>
+        </tags>
+      </rule>
+      <rule id="12c03c89-7a99-41ce-883b-48c17ea4971b" provider="user" class="system">
+        <patterns>
+          <pattern>NOQUEUE: reject: RCPT from @ESTRING:postfix.client.hostname:[@@ESTRING:postfix.client.ip:]@: @NUMBER:postfix.result.code@ @ESTRING:postfix.result.dsn: @@QSTRING:postfix.recipient:&lt;&gt;@: @ESTRING:postfix.result.msg:;@ from=@QSTRING:postfix.sender:&lt;&gt;@ to=@QSTRING:postfix.recipient2:&lt;&gt;@ proto=@ESTRING:postfix.proto: @helo=@QSTRING:postfix.helo:&lt;&gt;@</pattern>
+        </patterns>
+        <tags>
+          <tag>postfix</tag>
+          <tag>smtpd</tag>
+        </tags>
+        <values>
+          <value name="queue_id">NOQUEUE</value>
+        </values>
+      </rule>
+      <rule id="fe4cccd3-a915-4e07-9b84-156ddced6911" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:postfix.qid::@ reject: RCPT from @ESTRING:postfix.client.hostname:[@@ESTRING:postfix.client.ip:]@: @NUMBER:postfix.result.code@ @ESTRING:postfix.result.dsn: @@QSTRING:postfix.recipient:&lt;&gt;@: @ESTRING:postfix.result.msg:;@ from=@QSTRING:postfix.sender:&lt;&gt;@ to=@QSTRING:postfix.recipient2:&lt;&gt;@ proto=@ESTRING:postfix.proto: @helo=@QSTRING:postfix.helo:&lt;&gt;@</pattern>
+        </patterns>
+        <tags>
+          <tag>postfix</tag>
+          <tag>smtpd</tag>
+        </tags>
+        <examples>
+          <example>
+            <test_message program="postfix/smtpd">7CFEC936015: reject: RCPT from unknown[192.168.25.183]: 550 5.1.1 &lt;lobwerwernel@tagelnat.tld&gt;: Recipient address rejected: User unknown in virtual mailbox table; from=&lt;insightfulpm19@tummendag.tld&gt; to=&lt;lobwerwernel@tagelnat.tld&gt; proto=ESMTP helo=&lt;[192.168.237.223]&gt;</test_message>
+            <test_values>
+              <test_value name="postfix.qid">7CFEC936015</test_value>
+              <test_value name="postfix.client.hostname">unknown</test_value>
+              <test_value name="postfix.client.ip">192.168.25.183</test_value>
+              <test_value name="postfix.result.code">550</test_value>
+              <test_value name="postfix.result.dsn">5.1.1</test_value>
+              <test_value name="postfix.recipient">lobwerwernel@tagelnat.tld</test_value>
+              <test_value name="postfix.result.msg">Recipient address rejected: User unknown in virtual mailbox table</test_value>
+              <test_value name="postfix.sender">insightfulpm19@tummendag.tld</test_value>
+              <test_value name="postfix.recipient2">lobwerwernel@tagelnat.tld</test_value>
+              <test_value name="postfix.proto">ESMTP</test_value>
+              <test_value name="postfix.helo">[192.168.237.223]</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+      <rule id="0f881783-3d7c-4ab5-b8e5-6d30f9615aca" provider="user" class="system">
+        <patterns>
+          <pattern>lost connection after @ESTRING:postfix.command: @from @ESTRING:postfix.client.hostname:[@@ESTRING:postfix.client.ip:]@</pattern>
+          <pattern>lost connection after @ESTRING:postfix.command: @(@NUMBER:postfix.bytes@ bytes) from @ESTRING:postfix.client.hostname:[@@ESTRING:postfix.client.ip:]@</pattern>
+        </patterns>
+        <tags>
+          <tag>postfix</tag>
+          <tag>smtpd</tag>
+        </tags>
+        <examples>
+          <example>
+            <test_message program="postfix/smtpd">lost connection after DATA (0 bytes) from unknown[192.168.238.8]</test_message>
+            <test_values>
+              <test_value name="postfix.command">DATA</test_value>
+              <test_value name="postfix.bytes">0</test_value>
+              <test_value name="postfix.client.hostname">unknown</test_value>
+              <test_value name="postfix.client.ip">192.168.238.8</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+      <rule id="697b460d-3ce0-4121-9498-631dc115b01f" provider="user" class="system">
+        <patterns>
+          <pattern>connect from @ESTRING:postfix.client.hostname:[@@ESTRING:postfix.client.ip:]@</pattern>
+        </patterns>
+        <tags>
+          <tag>postfix</tag>
+          <tag>smtpd</tag>
+        </tags>
+      </rule>
+      <rule id="6c3f63bf-8f94-4f09-88e0-a75740d514a6" provider="user" class="system">
+        <patterns>
+          <pattern>disconnect from @ESTRING:postfix.client.hostname:[@@ESTRING:postfix.client.ip:]@</pattern>
+        </patterns>
+        <tags>
+          <tag>postfix</tag>
+          <tag>smtpd</tag>
+        </tags>
+      </rule>
+    </rules>
+  </ruleset>
+  <ruleset name="postfix/qmgr" id="4aacb0bc-af0e-437b-b111-668f463be5ca">
+    <pattern>postfix/qmgr</pattern>
+    <rules>
+      <rule id="bb9ccb9f-eba1-45bd-88e8-e7fc5bacb506" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:postfix.qid::@ from=@QSTRING:postfix.from:&lt;&gt;@, size=@NUMBER:postfix.size@, nrcpt=@NUMBER:postfix.nrcpt@ @ANYSTRING:postfix.status@</pattern>
+        </patterns>
+        <tags>
+          <tag>postfix</tag>
+          <tag>qmgr</tag>
+        </tags>
+      </rule>
+      <rule id="f74e3829-4bc9-469d-a929-9a421cfced94" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:postfix.qid::@ removed</pattern>
+        </patterns>
+        <tags>
+          <tag>postfix</tag>
+          <tag>qmgr</tag>
+        </tags>
+      </rule>
+      <rule id="9b39b7b1-c2f3-4c89-b442-4a4f78ead520" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:postfix.qid::@ from=@QSTRING:postfix.sender:&lt;&gt;@, status=@ANYSTRING:postfix.status@</pattern>
+        </patterns>
+        <tags>
+          <tag>postfix</tag>
+          <tag>qmgr</tag>
+        </tags>
+        <examples>
+          <example>
+            <test_message program="postfix/qmgr">A49D13C34E6: from=&lt;cedrus-d2-bounces@lists.illusion.hu&gt;, status=expired, returned to sender</test_message>
+            <test_values>
+              <test_value name="postfix.qid">A49D13C34E6</test_value>
+              <test_value name="postfix.sender">cedrus-d2-bounces@lists.illusion.hu</test_value>
+              <test_value name="postfix.status">expired, returned to sender</test_value>
+            </test_values>
+          </example>
+        </examples>
+      </rule>
+    </rules>
+  </ruleset>
+  <ruleset name="postfix/bounce" id="90ba7624-a364-4f69-86a9-6fecce84e123">
+    <pattern>postfix/bounce</pattern>
+    <rules>
+      <rule id="eedaa82b-2d00-4917-9d38-4515141c954e" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:postfix.qid::@ sender non-delivery notification: @ANYSTRING:postfix.bounceid@</pattern>
+        </patterns>
+        <tags>
+          <tag>postfix</tag>
+          <tag>bounce</tag>
+        </tags>
+      </rule>
+    </rules>
+  </ruleset>
+  <ruleset name="postfix/pipe" id="4aacb5bc-af0e-437b-b111-668f463be5ca">
+    <pattern>postfix/pipe</pattern>
+    <rules>
+      <rule id="09c6fb46-54a8-4a05-b946-a3fe1b9d86fc" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:postfix.qid::@ to=@QSTRING:postfix.to:&lt;&gt;@, relay=@ESTRING:postfix.relay:,@ delay=@ESTRING:postfix.delay:,@ delays=@ESTRING:postfix.delays.1:/@@ESTRING:postfix.delays.2:/@@ESTRING:postfix.delays.3:/@@ESTRING:postfix.delays.4:,@ dsn=@ESTRING:postfix.dsn:,@ status=@ESTRING:postfix.status: @@QSTRING:postfix.statusmsg:()@</pattern>
+        </patterns>
+        <tags>
+          <tag>postfix</tag>
+          <tag>pipe</tag>
+        </tags>
+      </rule>
+    </rules>
+  </ruleset>
+  <ruleset name="postfix/anvil" id="31051b1e-3290-473c-b478-a24eb6a40839">
+    <pattern>postfix/anvil</pattern>
+    <rules>
+      <rule id="c6efecda-ef8b-4fa3-beb3-3e1b809bf8aa" provider="user" class="system">
+        <patterns>
+          <pattern>statistics: max connection rate @ESTRING:postfix.anvil.connrate: @for (@ESTRING:postfix.anvil.proto::@@IPvANY:postfix.client.ip@) at @ANYSTRING:postfix.anvil.date@</pattern>
+          <pattern>statistics: max connection rate @ESTRING:postfix.anvil.connrate: @for (@IPvANY:postfix.server.ip:@:@NUMBER:postfix.server.port@:@IPvANY:postfix.client.ip@) at @ANYSTRING:postfix.anvil.date@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="postfix/anvil">statistics: max connection rate 2/60s for (smtp:192.168.46.38) at Feb 27 14:13:59</test_message>
+            <test_values>
+              <test_value name="postfix.anvil.connrate">2/60s</test_value>
+              <test_value name="postfix.anvil.proto">smtp</test_value>
+              <test_value name="postfix.client.ip">192.168.46.38</test_value>
+              <test_value name="postfix.anvil.date">Feb 27 14:13:59</test_value>
+            </test_values>
+          </example>
+          <example>
+            <test_message program="postfix/anvil">statistics: max connection rate 4/60s for (192.168.25.183:25:192.168.25.183) at Feb 27 16:13:11</test_message>
+            <test_values>
+              <test_value name="postfix.anvil.connrate">4/60s</test_value>
+              <test_value name="postfix.server.ip">192.168.25.183</test_value>
+              <test_value name="postfix.server.port">25</test_value>
+              <test_value name="postfix.client.ip">192.168.25.183</test_value>
+              <test_value name="postfix.anvil.date">Feb 27 16:13:11</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <tags>
+          <tag>postfix</tag>
+          <tag>anvil</tag>
+        </tags>
+      </rule>
+      <rule id="b396ce06-ae87-40a7-9707-1f631d5697c5" provider="user" class="system">
+        <patterns>
+          <pattern>statistics: max connection count @NUMBER:postfix.anvil.conncount@ for (@IPvANY:postfix.server.ip@:@NUMBER:postfix.server.port@:@IPvANY:postfix.client.ip@) at @ANYSTRING:postfix.anvil.date@</pattern>
+          <pattern>statistics: max connection count @NUMBER:postfix.anvil.conncount@ for (smtp:@IPvANY:postfix.client.ip@) at @ANYSTRING:postfix.anvil.date@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="postfix/anvil">statistics: max connection count 1 for (0.0.0.0:2525:188.36.216.113) at Feb 27 14:07:26</test_message>
+            <test_values>
+              <test_value name="postfix.anvil.conncount">1</test_value>
+              <test_value name="postfix.server.ip">0.0.0.0</test_value>
+              <test_value name="postfix.server.port">2525</test_value>
+              <test_value name="postfix.client.ip">188.36.216.113</test_value>
+              <test_value name="postfix.anvil.date">Feb 27 14:07:26</test_value>
+            </test_values>
+          </example>
+          <example>
+            <test_message program="postfix/anvil">statistics: max connection count 1 for (smtp:192.168.46.38) at Feb 27 15:36:52</test_message>
+            <test_values>
+              <test_value name="postfix.anvil.conncount">1</test_value>
+              <test_value name="postfix.client.ip">192.168.46.38</test_value>
+              <test_value name="postfix.anvil.date">Feb 27 15:36:52</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <tags>
+          <tag>postfix</tag>
+          <tag>anvil</tag>
+        </tags>
+      </rule>
+      <rule id="e05d0227-5cae-45c9-96bd-121aef46f9b8" provider="user" class="system">
+        <patterns>
+          <pattern>statistics: max cache size @NUMBER:postfix.anvil.cachesize@ at @ANYSTRING:postfix.anvil.date@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="postfix/anvil">statistics: max cache size 2 at Feb 27 14:14:46</test_message>
+            <test_values>
+              <test_value name="postfix.anvil.cachesize">2</test_value>
+              <test_value name="postfix.anvil.date">Feb 27 14:14:46</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <tags>
+          <tag>postfix</tag>
+          <tag>anvil</tag>
+        </tags>
+      </rule>
+    </rules>
+  </ruleset>
+  <ruleset name="postfix/pickup" id="e6383eea-bf46-4b36-a3b5-f8615e201c0c">
+    <pattern>postfix/pickup</pattern>
+    <rules>
+      <rule id="3940fd23-d6ff-4492-aa47-758035d3957e" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:postfix.qid::@ uid=@NUMBER:postfix.uid@ from=@QSTRING:postfix.sender:&lt;&gt;@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="postfix/pickup">CABB4B2007: uid=108 from=&lt;nagios&gt;</test_message>
+            <test_values>
+              <test_value name="postfix.qid">CABB4B2007</test_value>
+              <test_value name="postfix.uid">108</test_value>
+              <test_value name="postfix.sender">nagios</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <tags>
+          <tag>postfix</tag>
+          <tag>pickup</tag>
+        </tags>
+      </rule>
+    </rules>
+  </ruleset>
+  <ruleset name="postfix/local" id="ab64ff23-8609-4b1b-848b-ef73c5a83085">
+    <pattern>postfix/local</pattern>
+    <rules>
+      <rule id="0d9c7dae-b1f4-4cf7-b22c-1ac81824d796" provider="user" class="system">
+        <patterns>
+          <pattern>@ESTRING:postfix.qid::@ to=@QSTRING:postfix.to:&lt;&gt;@, orig_to=@QSTRING:postfix.orig_to:&lt;&gt;@, relay=@ESTRING:postfix.relay:,@ delay=@ESTRING:postfix.delay:,@ delays=@ESTRING:postfix.delays.1:/@@ESTRING:postfix.delays.2:/@@ESTRING:postfix.delays.3:/@@ESTRING:postfix.delays.4:,@ dsn=@ESTRING:postfix.dsn:,@ status=@ESTRING:postfix.status: @@QSTRING:postfix.statusmsg:()@</pattern>
+        </patterns>
+        <examples>
+          <example>
+            <test_message program="postfix/local">38E2723E1A4: to=&lt;peszter@clunks.com&gt;, orig_to=&lt;p.eszter@clunks.com&gt;, relay=local, delay=0.05, delays=0.03/0/0/0.02, dsn=2.0.0, status=sent (delivered to command: procmail -a "$EXTENSION" DEFAULT=$HOME/mails/)</test_message>
+            <test_values>
+              <test_value name="postfix.qid">38E2723E1A4</test_value>
+              <test_value name="postfix.to">peszter@clunks.com</test_value>
+              <test_value name="postfix.orig_to">p.eszter@clunks.com</test_value>
+              <test_value name="postfix.relay">local</test_value>
+              <test_value name="postfix.delay">0.05</test_value>
+              <test_value name="postfix.delays.1">0.03</test_value>
+              <test_value name="postfix.delays.2">0</test_value>
+              <test_value name="postfix.delays.3">0</test_value>
+              <test_value name="postfix.delays.4">0.02</test_value>
+              <test_value name="postfix.dsn">2.0.0</test_value>
+              <test_value name="postfix.status">sent</test_value>
+              <test_value name="postfix.statusmsg">delivered to command: procmail -a "$EXTENSION" DEFAULT=$HOME/mails/</test_value>
+            </test_values>
+          </example>
+        </examples>
+        <tags>
+          <tag>postfix</tag>
+          <tag>pickup</tag>
+        </tags>
+      </rule>
+    </rules>
+  </ruleset>
+</patterndb>
