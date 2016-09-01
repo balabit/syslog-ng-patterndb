@@ -34,7 +34,7 @@
           <value name="usracct.type">login</value>
           <value name="usracct.sessionid">$PID</value>
           <value name="usracct.application">$PROGRAM</value>
-          <value name="usracct.device">${temp.sudo_username}@${temp.sudo_tty}</value>
+          <value name="usracct.device">${temp.sudo_username}@@${temp.sudo_tty}</value>
           <value name="usracct.object">${temp.sudo_pwd}$$ ${temp.sudo_command}</value>
           <value name="secevt.verdict">ACCEPT</value>
         </values>
@@ -63,7 +63,7 @@
           <value name="usracct.type">login</value>
           <value name="usracct.sessionid">$PID</value>
           <value name="usracct.application">$PROGRAM</value>
-          <value name="usracct.device">${temp.sudo_username}@${temp.sudo_tty}</value>
+          <value name="usracct.device">${temp.sudo_username}@@${temp.sudo_tty}</value>
           <value name="secevt.verdict">REJECT</value>
         </values>
         <tags>
@@ -90,7 +90,7 @@
           <value name="usracct.type">login</value>
           <value name="usracct.sessionid">$PID</value>
           <value name="usracct.application">$PROGRAM</value>
-          <value name="usracct.device">${temp.sudo_username}@unknown</value>
+          <value name="usracct.device">${temp.sudo_username}@@unknown</value>
           <value name="secevt.verdict">REJECT</value>
         </values>
         <tags>
