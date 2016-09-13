@@ -52,7 +52,7 @@
           <value name="usracct.type">login</value>
           <value name="usracct.sessionid">$PID</value>
           <value name="usracct.application">$PROGRAM</value>
-          <value name="usracct.device">${temp.su_username}@${temp.su_tty}</value>
+          <value name="usracct.device">${temp.su_username}@@${temp.su_tty}</value>
           <value name="secevt.verdict">REJECT</value>
         </values>
         <tags>
